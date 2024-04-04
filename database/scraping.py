@@ -182,7 +182,7 @@ class UnilScrape:
         brancheid = self.cur.fetchone()[0]
 
         #insert data cours
-        self.cur.execute("INSERT INTO cours (nom, credits, langage, objectif, contenu, exigences, evaluation, semestre, url, brancheid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        self.cur.execute("INSERT OR IGNORE INTO cours (nom, credits, langage, objectif, contenu, exigences, evaluation, semestre, url, brancheid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (cours_dict['name'], cours_dict['credits'], cours_dict['lang'], cours_dict['objectif'], cours_dict['contenu'], cours_dict['exigences'],
                     cours_dict['evaluation'], cours_dict['semestre'], cours_dict['url'], brancheid)
                     )
@@ -191,8 +191,9 @@ class UnilScrape:
         #insert profs
         for prof in cours_dict['profs']:
             self.cur.execute("INSERT OR IGNORE INTO intervenant (nom) VALUES (?)", (prof,))
-            profid = self.cur.lastrowid
-            self.cur.execute("INSERT INTO cours_has_intervenant (intervenantid, coursid, brancheid) VALUES (?, ?, ?)",
+            self.cur.execute("SELECT id FROM intervenant WHERE nom =?", (prof, ))
+            profid = self.cur.fetchone()[0]
+            self.cur.execute("INSERT OR IGNORE INTO cours_has_intervenant (intervenantid, coursid, brancheid) VALUES (?, ?, ?)",
                             (profid, coursid, brancheid)
                         )
         
@@ -207,14 +208,14 @@ class UnilScrape:
     
     def branches_to_database(self, branche:str):
         #insert data branche
-        self.cur.execute("INSERT INTO branche (nom, faculte) VALUES (?, ?)",
+        self.cur.execute("INSERT OR IGNORE INTO branche (nom, faculte) VALUES (?, ?)",
                     (branche, self.faculte)
                     )
 
     def create_horaires(self, plages:list):
         for jour in UnilScrape.JOURS:
             for plage in plages:
-                self.cur.execute("INSERT INTO horaire (horaire, jour) VALUES (?, ?)",
+                self.cur.execute("INSERT OR IGNORE INTO horaire (horaire, jour) VALUES (?, ?)",
                     (plage, jour)
                     )
 

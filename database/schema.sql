@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "branche" (
 
 CREATE TABLE IF NOT EXISTS "cours" (
 	"id" INTEGER NOT NULL UNIQUE,
-	"nom" TEXT NOT NULL,
+	"nom" TEXT NOT NULL UNIQUE,
 	"credits" TEXT NOT NULL,
 	"langage" TEXT NOT NULL,
 	"objectif" TEXT,
