@@ -14,7 +14,7 @@ def get_db_connection():
 @app.route("/", methods=["GET"])
 def hello():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
+    posts = conn.execute('SELECT * FROM horaire').fetchall()
     for row in posts:
         print(row)
     conn.close()
@@ -22,4 +22,4 @@ def hello():
     return posts
 
 if __name__ == "__main__":
-    app.run("localhost", 6969)
+    app.run("localhost", 6969, debug=True)
