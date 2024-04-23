@@ -1,4 +1,5 @@
 from Search import Search
+from GroupCours import GroupCours
 
 search_obj = Search()
 
@@ -6,4 +7,4 @@ search_obj = Search()
 #for x in search_obj.get_data():
 #    print(x["intervenants"])
 
-print(search_obj.get_data(intervenants=["Sylvian Fachard", "Matthieu Demierre"]))
+GroupCours(search_obj.get_data())

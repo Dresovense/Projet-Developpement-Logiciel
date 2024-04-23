@@ -1,7 +1,9 @@
+import pandas as pd
+
 class GroupCours():
-    def __init__(self, data:dict):
+    def __init__(self, data:list):
         #create dataframe
-        pass
+        self.dataframe = pd.DataFrame(data)
 
     def similarity(self, group_cours):
         pass
