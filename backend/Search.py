@@ -3,7 +3,7 @@ import sqlite3
 class Search():
     db_info = 'database/database.db'
 
-    def get_data(self, languages:list = None):
+    def get_data(self, languages:list = None, credits:list = None, intervenants:list = None):
         courses_filtered = self.get_all_courses()
 
         #iterate through the courses
@@ -11,7 +11,20 @@ class Search():
             #apply language filter if specified
             if languages:
                 if not self.check_languages(course, languages):
-                    courses_filtered.remove(course)
+                    if course in courses_filtered:
+                        courses_filtered.remove(course)
+
+            #apply credits filter if specified
+            if credits:
+                if not self.check_credits(course, credits):
+                    if course in courses_filtered:
+                        courses_filtered.remove(course)
+
+            #apply intervenants filter if specified
+            if intervenants:
+                if not self.check_intervenants(course, intervenants):
+                    if course in courses_filtered:
+                        courses_filtered.remove(course)
         
         return courses_filtered
 
@@ -19,6 +32,19 @@ class Search():
         if course["langage"] in languages:
             return True
         return False
+    
+    def check_credits(self, course, credits):
+        if course["credits"] in credits:
+            return True
+        return False
+    
+    def check_intervenants(self, course, intervenants):
+        # return true seulement si x et y donnent le cours (et non x ou y)
+        # changer pour set(course["intervenants"]).intersection(set(intervenants)) si on souhaite afficher donnés par x ou y
+        if set(course["intervenants"]) >= set(intervenants):
+            return True
+        return False
+
 
     def get_all_courses(self):  
         #database connection
