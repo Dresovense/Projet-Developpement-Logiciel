@@ -3,8 +3,8 @@ from GroupCours import GroupCours
 
 search_obj = Search()
 
-#print(search_obj.get_data(languages=["allemand"]))
-#for x in search_obj.get_data():
-#    print(x["intervenants"])
+#print(search_obj.get_data(branches=["Français", "Informatique pour les sciences humaines", "Linguistique"]))
+for x in search_obj.get_data(branches=["Français", "Informatique pour les sciences humaines", "Linguistique"]):
+    print(x["branche"])
+""" print(search_obj.get_data()[0]) """
 
-GroupCours(search_obj.get_data())

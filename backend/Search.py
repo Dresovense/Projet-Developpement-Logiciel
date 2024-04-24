@@ -4,60 +4,60 @@ class Search():
     db_info = 'database/database.db'
 
     def get_data(self, languages:list = None, credits:list = None, intervenants:list = None, branches:list = None):
-        courses_filtered = self.get_all_courses()
+        courses_filtered = self.__get_all_courses()
 
         #iterate through the courses
         for course in courses_filtered[:]:
             #apply language filter if specified
             if languages:
-                if not self.check_languages(course, languages):
+                if not self.__check_languages(course, languages):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
 
             #apply credits filter if specified
             if credits:
-                if not self.check_credits(course, credits):
+                if not self.__check_credits(course, credits):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
 
             #apply intervenants filter if specified
             if intervenants:
-                if not self.check_intervenants(course, intervenants):
+                if not self.__check_intervenants(course, intervenants):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
 
             #apply branches filter if specified
             if branches:
-                if not self.check_branches(course, branches):
+                if not self.__check_branches(course, branches):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
         
         return courses_filtered
 
-    def check_languages(self, course, languages):
+    def __check_languages(self, course, languages):
         if course["langage"] in languages:
             return True
         return False
     
-    def check_credits(self, course, credits):
+    def __check_credits(self, course, credits):
         if course["credits"] in credits:
             return True
         return False
     
-    def check_intervenants(self, course, intervenants):
+    def __check_intervenants(self, course, intervenants):
         # return true seulement si x et y donnent le cours (et non x ou y)
         # changer pour set(course["intervenants"]).intersection(set(intervenants)) si on souhaite afficher donnés par x ou y
         if set(course["intervenants"]) >= set(intervenants):
             return True
         return False
     
-    def check_branches(self, course, branches):
+    def __check_branches(self, course, branches):
         if course["branche"] in branches:
             return True
         return False
 
 
-    def get_all_courses(self):  
+    def __get_all_courses(self):  
         #database connection
         conn = sqlite3.connect(self.db_info)
 
@@ -94,6 +94,19 @@ class Search():
             '''
             intervenants = conn.execute(intervenants_query, (cours_dict['id'],)).fetchall()
             cours_dict['intervenants'] = [intervenant['nom'] for intervenant in intervenants]
+
+            # Fetch the branch name for the current course
+            branche_query = '''
+                SELECT nom
+                FROM branche
+                WHERE id = ?
+            '''
+            branche = conn.execute(branche_query, (cours_dict['brancheid'],)).fetchone()
+            if branche:
+                cours_dict['branche'] = branche['nom']
+            
+            # Append the course dictionary to the list
+            cours_dict_list.append(cours_dict)
             
             # Append the course dictionary to the list
             cours_dict_list.append(cours_dict)
