@@ -3,7 +3,7 @@ import sqlite3
 class Search():
     db_info = 'database/database.db'
 
-    def get_data(self, languages:list = None, credits:list = None, intervenants:list = None, branches:list = None):
+    def get_data(self, languages:list = None, credits:list = None, intervenants:list = None, branches:list = None, semester: list = None):
         courses_filtered = self.__get_all_courses()
 
         #iterate through the courses
@@ -31,6 +31,12 @@ class Search():
                 if not self.__check_branches(course, branches):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
+
+            #apply branches filter if specified
+            if semester:
+                if not self.__check_semesters(course, semester):
+                    if course in courses_filtered:
+                        courses_filtered.remove(course)
         
         return courses_filtered
 
@@ -45,9 +51,8 @@ class Search():
         return False
     
     def __check_intervenants(self, course, intervenants):
-        # return true seulement si x et y donnent le cours (et non x ou y)
-        # changer pour set(course["intervenants"]).intersection(set(intervenants)) si on souhaite afficher donnés par x ou y
-        if set(course["intervenants"]) >= set(intervenants):
+        # in the case of a list of intervenants in arg, returns true if one of them is in the course["intervenants"]
+        if set(course["intervenants"]).intersection(set(intervenants)):
             return True
         return False
     
@@ -55,7 +60,11 @@ class Search():
         if course["branche"] in branches:
             return True
         return False
-
+    
+    def __check_semesters(self, course, semesters):
+        if course["semestre"] in semesters:
+            return True
+        return False
 
     def __get_all_courses(self):  
         #database connection
