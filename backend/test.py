@@ -5,6 +5,6 @@ search_obj = Search()
 
 #print(search_obj.get_data(branches=["Français", "Informatique pour les sciences humaines", "Linguistique"]))
 for x in search_obj.get_data(branches=["Français", "Informatique pour les sciences humaines", "Linguistique"]):
-    print(x["branche"])
+    print(x["horaires"])
 """ print(search_obj.get_data()[0]) """
 

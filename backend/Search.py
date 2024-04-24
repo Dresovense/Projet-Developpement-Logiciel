@@ -84,15 +84,15 @@ class Search():
             # Create a dictionary for the current course
             cours_dict = dict(row)
             
-            # Fetch horaires for the current course
-            horaires_query = '''
-                SELECT horaire
-                FROM horaire
-                INNER JOIN cours_has_horaire ON horaire.id = cours_has_horaire.horaireid
-                WHERE cours_has_horaire.coursid = ?
+            # Fetch horaireids for the current course
+            horaireids_query = '''
+                SELECT horaireid
+                FROM cours_has_horaire
+                WHERE coursid = ?
             '''
-            horaires = conn.execute(horaires_query, (cours_dict['id'],)).fetchall()
-            cours_dict['horaires'] = [horaire['horaire'] for horaire in horaires]
+            horaireids = conn.execute(horaireids_query, (cours_dict['id'],)).fetchall()
+            cours_dict['horaires'] = [horaireid['horaireid'] for horaireid in horaireids]
+    
             
             # Fetch intervenants for the current course
             intervenants_query = '''
