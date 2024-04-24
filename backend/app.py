@@ -1,6 +1,6 @@
 import sqlite3
 
-from flask import Flask
+from flask import Flask,jsonify
 from flask_cors import CORS
 
 
@@ -14,12 +14,12 @@ def get_db_connection():
 @app.route("/", methods=["GET"])
 def hello():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM posts').fetchall()
+    posts = conn.execute('SELECT * FROM horaire').fetchall()
     for row in posts:
         print(row)
     conn.close()
     print(posts)
-    return posts
+    return jsonify(posts)
 
 if __name__ == "__main__":
     app.run("localhost", 6969)
