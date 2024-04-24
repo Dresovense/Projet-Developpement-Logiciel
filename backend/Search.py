@@ -32,7 +32,7 @@ class Search():
                     if course in courses_filtered:
                         courses_filtered.remove(course)
 
-            #apply branches filter if specified
+            #apply semester filter if specified
             if semester:
                 if not self.__check_semesters(course, semester):
                     if course in courses_filtered:
