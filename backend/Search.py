@@ -45,9 +45,8 @@ class Search():
         return False
     
     def check_intervenants(self, course, intervenants):
-        # return true seulement si x et y donnent le cours (et non x ou y)
-        # changer pour set(course["intervenants"]).intersection(set(intervenants)) si on souhaite afficher donnés par x ou y
-        if set(course["intervenants"]) >= set(intervenants):
+        # in the case of a list of intervenants in arg, returns true if one of them is in the course["intervenants"]
+        if set(course["intervenants"]).intersection(set(intervenants)):
             return True
         return False
     
