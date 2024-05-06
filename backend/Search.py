@@ -5,6 +5,7 @@ class Search():
 
     def get_data(self, languages:list = None, credits:list = None, intervenants:list = None, branches:list = None, semester: list = None, horaires:list = None):
         courses_filtered = self.__get_all_courses()
+        other_courses = list()
 
         #iterate through the courses
         for course in courses_filtered[:]:
@@ -13,38 +14,44 @@ class Search():
                 if not self.__check_languages(course, languages):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
+                        other_courses.append(course)
 
             #apply credits filter if specified
             if credits:
                 if not self.__check_credits(course, credits):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
+                        other_courses.append(course)
 
             #apply intervenants filter if specified
             if intervenants:
                 if not self.__check_intervenants(course, intervenants):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
+                        other_courses.append(course)
 
             #apply branches filter if specified
             if branches:
                 if not self.__check_branches(course, branches):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
+                        other_courses.append(course)
 
             #apply semester filter if specified
             if semester:
                 if not self.__check_semesters(course, semester):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
+                        other_courses.append(course)
 
             #apply horaire filter if specified
             if horaires:
                 if not self.__check_horaires(course, horaires):
                     if course in courses_filtered:
                         courses_filtered.remove(course)
+                        other_courses.append(course)
         
-        return courses_filtered
+        return courses_filtered, other_courses
 
     def __check_languages(self, course, languages):
         if course["langage"] in languages:
@@ -72,8 +79,8 @@ class Search():
             return True
         return False
     
-    def __check_horaires(self, course, horaires):
-        if set(course["horaire"]) in horaires:
+    """ def __check_horaires(self, course, horaires):
+        if set(course["horaire"]) in horaires: """
 
     def __get_all_courses(self):  
         #database connection
@@ -122,9 +129,6 @@ class Search():
             branche = conn.execute(branche_query, (cours_dict['brancheid'],)).fetchone()
             if branche:
                 cours_dict['branche'] = branche['nom']
-            
-            # Append the course dictionary to the list
-            cours_dict_list.append(cours_dict)
             
             # Append the course dictionary to the list
             cours_dict_list.append(cours_dict)
