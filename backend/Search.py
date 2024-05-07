@@ -3,7 +3,7 @@ import sqlite3
 class Search():
     db_info = 'database/database.db'
 
-    def get_data(self, languages:list = None, credits:list = None, intervenants:list = None, branches:list = None, semester: list = None, horaires:list = None):
+    def get_data(self, languages:list = None, credits:list = None, intervenants:list = None, branches:list = None, semester: list = None, horaires:list = None, return_others:bool = False):
         courses_filtered = self.__get_all_courses()
         other_courses = list()
 
@@ -51,7 +51,11 @@ class Search():
                         courses_filtered.remove(course)
                         other_courses.append(course)
         
-        return courses_filtered, other_courses
+        if return_others:
+            return courses_filtered, other_courses
+        
+        return courses_filtered
+            
 
     def __check_languages(self, course, languages):
         if course["langage"] in languages:
