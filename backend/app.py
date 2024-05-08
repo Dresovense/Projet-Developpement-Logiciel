@@ -14,12 +14,16 @@ def get_db_connection():
 @app.route("/", methods=["GET"])
 def hello():
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM horaire').fetchall()
-    for row in posts:
-        print(row)
+    courses = conn.execute('SELECT nom, id FROM branche').fetchall()
+    teachers = conn.execute('SELECT nom, id FROM intervenant').fetchall()
     conn.close()
-    print(posts)
-    return jsonify(posts)
+    dictionnaire = {
+        "cours" : courses,
+        "intervenants" : teachers,
+    }
+
+    print(dictionnaire)
+    return jsonify(dictionnaire)
 
 if __name__ == "__main__":
     app.run("localhost", 6969)

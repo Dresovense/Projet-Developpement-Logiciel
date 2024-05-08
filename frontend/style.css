@@ -1,5 +1,5 @@
 body, html {height: 100%}
-body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Arial", sans-serif}
 .menu {display: none}
 .bgimg {
   background-repeat: no-repeat;
@@ -21,7 +21,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     color: black;
 }
 
-.filter_classes {
+.filter_credits {
     color: black;
 }
 

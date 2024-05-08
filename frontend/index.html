@@ -50,22 +50,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <div class="w3-row w3-border w3-border-dark-grey">
       <div>
         Branche 1
-        <select name="branche1" id="branche1">
-          <option value="anglais">Anglais</option>
-          <option value="ish">Informatique pour Sciences Humaines</option>
-          <option value="cinema">Histoire et Esthétique du cinéma</option>
-          <option value="francaism">Français moderne</option>
-          <option value="archeologie">Archéologie</option>
+        <select name="branche1" id="branche1" class = "filtre_branche">
         </select>
       </div>
       <div>
         Branche 2
-        <select name="branche2" id="branche2">
-          <option value="anglais">Anglais</option>
-          <option value="ish">Informatique pour Sciences Humaines</option>
-          <option value="cinema">Histoire et Esthétique du cinéma</option>
-          <option value="francaism">Français moderne</option>
-          <option value="archeologie">Archéologie</option>
+        <select name="branche2" id="branche2" class = "filtre_branche">
         </select>
       </div>
       <a class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">
@@ -80,18 +70,37 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
               class="w3-button w3-display-topright">×</span>
               <h1>Filtres</h1>
             </header>
-            <div class="filter_teachers">
-              Filtre enseignants
+
+            <!--création des filtres avec menu déroulant-->
+            <div class="filter_teachers">              
+              <div onclick="showFilter(this)">Filtre Enseignant.e.x(.s)</div>
+              <div id="filters" style="display: none;">
+              <select name="intervenant" class="filtre_intervenant">
+                <option disabled selected value> --Enseignant.e.x.s-- </option>
+              </select>
+              <button onclick="ajout(this)">Ajouter</button> <br></br>
+              <div id="intervSelec">
+              </div>
             </div>
-            <div class="filter_branches" style="color: black;">
-              Filtre branches
+
+            <div class="filter_branches">
+              <div onclick="showFilter(this)">Filtre Branche(s)</div>
+              <div id="filters" style="display: none;">
+                <select name="branches" class="filtre_branche">
+                  <option disabled selected value> --Branches-- </option>
+                </select>
+                </div>
             </div>
-            <div class="filter_modules" style="color: black;">
-              Filtre modules
+
+            <div class="filter_credits" >
+              <div onclick="showFilter(this)">Filtre crédits</div>
+              <div id="filters" style="display: none;">
+                <select name="credits" class="filtre_credits">
+                  <option disabled selected value> --crédit(s)-- </option>
+                </select>
+                </div>
             </div>
-            <div class="filter_classes" style="color: black;">
-              Filtre cours
-            </div>
+
             <footer class="w3-container w3-theme-l1">
               <div onclick="document.getElementById('id01').style.display='none'"
               class="w3-button">Confirmer</div>

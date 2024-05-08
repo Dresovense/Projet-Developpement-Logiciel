@@ -13,3 +13,24 @@ function openMenu(evt, menuName) {
     evt.currentTarget.firstElementChild.className += " w3-red";
   }
   document.getElementById("myLink").click();
+
+  
+  //montrer ou cacher les options de filtre
+  function showFilter(div) {
+   let x = div.parentNode.querySelectorAll("div")[1];
+   console.log(x)
+   if (x.style.display === "none") {
+     x.style.display = "block";
+   } else {
+     x.style.display = "none";
+   }
+ }
+
+ //fonction d'ajout des éléments des filtres
+ function ajout(button){
+   let selection = button.parentNode.querySelector("select")
+   let intervEle = document.createElement("div")
+   intervEle.innerText = selection.value
+   let z = button.parentNode.querySelector("div")
+   z.appendChild(intervEle)
+ }
