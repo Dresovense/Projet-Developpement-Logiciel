@@ -34,3 +34,14 @@ function openMenu(evt, menuName) {
    let z = button.parentNode.querySelector("div")
    z.appendChild(intervEle)
  }
+
+
+ //afficher les cours
+ function create_space_course() { 
+  let prout = document.getElementById("Pizza")
+  for (let i = 0; i < 5; i++) {
+    const maDiv = document.createElement("div");
+    maDiv.innerText = "Je test des trucs";
+    prout.appendChild(maDiv)
+  }
+}
