@@ -22,4 +22,4 @@ def hello():
     return jsonify(posts)
 
 if __name__ == "__main__":
-    app.run("localhost", 6969)
+    app.run("localhost", 6969, debug=True)
