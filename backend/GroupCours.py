@@ -10,8 +10,10 @@ class GroupCours():
     def __init__(self, data:list):
         #create dataframe
         self.dataframe = pd.DataFrame(data)
+        print(self.dataframe)
 
     def similarity(self, group_cours_df, cluster_type:str = "mean"):
+
         # Example documents
 
         corpus_wanted = self.dataframe['nom'].to_list() #list of the classes we want to test the similarity for

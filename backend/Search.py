@@ -4,52 +4,52 @@ class Search():
     db_info = 'database/database.db'
 
     def get_data(self, languages:list = None, credits:list = None, intervenants:list = None, branches:list = None, semester: list = None, horaires:list = None, return_others:bool = False):
-        courses_filtered = self.__get_all_courses()
-        other_courses = list()
+        other_courses = self.__get_all_courses()
+        courses_filtered = list()
 
         #iterate through the courses
-        for course in courses_filtered[:]:
+        for course in other_courses[:]:
             #apply language filter if specified
             if languages:
-                if not self.__check_languages(course, languages):
-                    if course in courses_filtered:
-                        courses_filtered.remove(course)
-                        other_courses.append(course)
+                if self.__check_languages(course, languages):
+                    if course in other_courses:
+                        other_courses.remove(course)
+                        courses_filtered.append(course)
 
             #apply credits filter if specified
             if credits:
-                if not self.__check_credits(course, credits):
-                    if course in courses_filtered:
-                        courses_filtered.remove(course)
-                        other_courses.append(course)
+                if self.__check_credits(course, credits):
+                    if course in other_courses:
+                        other_courses.remove(course)
+                        courses_filtered.append(course)
 
             #apply intervenants filter if specified
             if intervenants:
-                if not self.__check_intervenants(course, intervenants):
-                    if course in courses_filtered:
-                        courses_filtered.remove(course)
-                        other_courses.append(course)
+                if self.__check_intervenants(course, intervenants):
+                    if course in other_courses:
+                        other_courses.remove(course)
+                        courses_filtered.append(course)
 
             #apply branches filter if specified
             if branches:
-                if not self.__check_branches(course, branches):
-                    if course in courses_filtered:
-                        courses_filtered.remove(course)
-                        other_courses.append(course)
+                if self.__check_branches(course, branches):
+                    if course in other_courses:
+                        other_courses.remove(course)
+                        courses_filtered.append(course)
 
             #apply semester filter if specified
             if semester:
-                if not self.__check_semesters(course, semester):
-                    if course in courses_filtered:
-                        courses_filtered.remove(course)
-                        other_courses.append(course)
+                if self.__check_semesters(course, semester):
+                    if course in other_courses:
+                        other_courses.remove(course)
+                        courses_filtered.append(course)
 
             #apply horaire filter if specified
             if horaires:
-                if not self.__check_horaires(course, horaires):
-                    if course in courses_filtered:
-                        courses_filtered.remove(course)
-                        other_courses.append(course)
+                if self.__check_horaires(course, horaires):
+                    if course in other_courses:
+                        other_courses.remove(course)
+                        courses_filtered.append(course)
         
         if return_others:
             return courses_filtered, other_courses
@@ -83,8 +83,9 @@ class Search():
             return True
         return False
     
-    """ def __check_horaires(self, course, horaires):
-        if set(course["horaire"]) in horaires: """
+    def __check_horaires(self, course, horaires):
+        pass
+        """ if set(course["horaire"]) in horaires: """
 
     def __get_all_courses(self):  
         #database connection
