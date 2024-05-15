@@ -58,8 +58,8 @@ class GroupCours():
     def send_data(self):
         pass
 
-    def export_data(self, type="csv"):
-        pass
+    def export_data(self, filename, type="csv"):
+        self.dataframe.to_csv(f'{filename}.csv')
 
     def build_model(self):
         #create corpus
