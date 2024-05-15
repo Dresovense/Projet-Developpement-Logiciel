@@ -14,7 +14,7 @@ function getStartData(){
     xhr = getXmlHttpResquestObject();
     xhr.onreadystatechange = startDataCallback;
 
-    xhr.open("GET", "http://localhost:6969/", true);
+    xhr.open("GET", "http://localhost:6969/startingData", true);
     xhr.send(null)
 }
 
@@ -49,6 +49,35 @@ function startDataCallback() {
                 intervFiltre[j].add(option);
             }
         }
+    }
+}
+
+let test_data = {
+    language: ["français"],
+    branches: ["Informatique pour les sciences humaines", "Linguistique"],
+    credits: null,
+    intervenants: null,
+    semester: null,
+    horaires: null,
+    similarity_type: "min"
+}
+
+function getSimilarity(){
+    console.log("Getting similarity ...");
+    xhr = getXmlHttpResquestObject();
+    xhr.onreadystatechange = similarityCallback;
+    xhr.open("POST", "http://localhost:6969/similarity", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    // Send the request over the network
+    xhr.send(JSON.stringify(test_data));
+}
+
+function similarityCallback() {
+    if(xhr.readyState == 4 && xhr.status == 200){
+        console.log("Data received!");
+        similairty_data = JSON.parse(xhr.responseText);
+
+        //CREER ICI L'INPUT DE LA SIMILARITé DANS LE CODE SELON CE QUE CA RENVOIT
     }
 }
 
