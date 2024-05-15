@@ -75,12 +75,23 @@ function getSimilarity(){
 function similarityCallback() {
     if(xhr.readyState == 4 && xhr.status == 200){
         console.log("Data received!");
-        similairty_data = JSON.parse(xhr.responseText);
-        console.log(similairty_data)
+        similarity_data = JSON.parse(xhr.responseText);
+        console.log(similarity_data)
+        createCourseDiv(similarity_data)
         //CREER ICI L'INPUT DE LA SIMILARITé DANS LE CODE SELON CE QUE CA RENVOIT + IL FAUT TRIER PAR SIMILARITé
     }
 }
 
-
+ //afficher les cours
+ function createCourseDiv(coursesData) { 
+    let divCourse = document.getElementById("Pizza")
+    divCourse.innerHTML = ""
+    for (let i = 0; i < coursesData.length; i++) {
+      const maDiv = document.createElement("div");
+      maDiv.innerText = "Je test des trucs";
+      divCourse.appendChild(maDiv)
+    }
+  }
 
 getStartData()
+
