@@ -1,7 +1,12 @@
 import sqlite3
 
-from flask import Flask,jsonify
+import flask
+import json
+from flask import Flask, jsonify, request
 from flask_cors import CORS
+
+from Search import Search
+from GroupCours import GroupCours
 
 
 app = Flask("Developpement logiciel")
@@ -11,15 +16,44 @@ def get_db_connection():
     conn = sqlite3.connect('database/database.db')
     return conn
 
-@app.route("/", methods=["GET"])
-def hello():
+@app.route("/startingData", methods=["GET"])
+def startingData():
+
     conn = get_db_connection()
-    posts = conn.execute('SELECT * FROM horaire').fetchall()
-    for row in posts:
-        print(row)
+    courses = conn.execute('SELECT nom, id FROM branche').fetchall()
+    teachers = conn.execute('SELECT nom, id FROM intervenant').fetchall()
     conn.close()
-    print(posts)
-    return jsonify(posts)
+    dictionnaire = {
+        "cours" : courses,
+        "intervenants" : teachers,
+    }
+
+    print(dictionnaire)
+    return jsonify(dictionnaire)
+
+@app.route("/similarity", methods=["POST"])
+def similarity():
+    received_data = request.get_json()
+    print(f"received data: {received_data}")
+
+    #Setup search:
+    search_obj = Search()
+
+    #Calculate similarity:         
+    cours1, cours2 = search_obj.get_data(
+        languages=received_data["langages"],
+        credits=received_data["credits"],
+        intervenants=received_data["intervenants"],
+        branches=received_data["branches"],
+        semester=received_data["semester"],
+        horaires=received_data["horaires"],
+        return_others=True)
+    cours1 = GroupCours(cours1)
+    cours2 = GroupCours(cours2)
+
+    cours2.similarity(cours1, cluster_type=received_data["similarity_type"])
+    
+    return flask.Response(response=json.dumps(cours2.dataframe.to_dict()), status=201)
 
 if __name__ == "__main__":
-    app.run("localhost", 6969, debug=True)
+    app.run("localhost", 6969)
