@@ -17,7 +17,7 @@ Python :
     - Flask-Cors 4.0.0
 - gensim 4.3.2
 - pandas 2.2.2
-- scipy 1.10.1
+- scipy 1.10.1 (!make sure to install this version!)
 - nltk 3.8.1
 - scikit-learn 1.4.2
 NPM :

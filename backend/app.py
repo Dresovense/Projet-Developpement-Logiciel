@@ -22,10 +22,12 @@ def startingData():
     conn = get_db_connection()
     courses = conn.execute('SELECT nom, id FROM branche').fetchall()
     teachers = conn.execute('SELECT nom, id FROM intervenant').fetchall()
+    horaires = conn.execute('SELECT id, horaire, jour FROM horaire').fetchall()
     conn.close()
     dictionnaire = {
         "cours" : courses,
         "intervenants" : teachers,
+        "horaires": horaires,
     }
 
     print(dictionnaire)
