@@ -1,5 +1,4 @@
 import sqlite3
-
 import flask
 import json
 from flask import Flask, jsonify, request
@@ -35,14 +34,14 @@ def startingData():
 @app.route("/similarity", methods=["POST"])
 def similarity():
     received_data = request.get_json()
-    print(f"received data: {received_data}")
+    print(f"received data: {received_data['languages']}")
 
     #Setup search:
     search_obj = Search()
 
     #Calculate similarity:         
     cours1, cours2 = search_obj.get_data(
-        languages=received_data["langages"],
+        languages=received_data["languages"],
         credits=received_data["credits"],
         intervenants=received_data["intervenants"],
         branches=received_data["branches"],
@@ -54,7 +53,7 @@ def similarity():
 
     cours2.similarity(cours1, cluster_type=received_data["similarity_type"])
     
-    return flask.Response(response=json.dumps(cours2.dataframe.to_dict()), status=201)
+    return jsonify(cours2.dataframe.to_dict(orient="records"))
 
 
 if __name__ == "__main__":
