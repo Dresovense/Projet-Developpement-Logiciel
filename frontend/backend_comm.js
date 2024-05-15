@@ -57,7 +57,7 @@ function createIntervenantChoice(jsonData) {
         }
 }
 
-let test_data = {
+let send_data = {
     languages: ["français"],
     branches: ["Informatique pour les sciences humaines", "Linguistique"],
     credits: null,

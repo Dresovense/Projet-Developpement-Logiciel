@@ -21,7 +21,7 @@ def startingData():
     conn = get_db_connection()
     courses = conn.execute('SELECT nom, id FROM branche').fetchall()
     teachers = conn.execute('SELECT nom, id FROM intervenant').fetchall()
-    horaires = conn.execute('SELECT id, jour, horaire FROM horaire')
+    horaires = conn.execute('SELECT id, jour, horaire FROM horaire').fetchall()
     conn.close()
     dictionnaire = {
         "cours" : courses,

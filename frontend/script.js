@@ -27,15 +27,32 @@ function openMenu(evt, menuName) {
  }
 
  //fonction d'ajout des éléments des filtres
+ let checkList = []
  function ajout(button){
    let selection = button.parentNode.querySelector("select")
-   let intervEle = document.createElement("div")
-   intervEle.className = "intervEle"
-   intervEle.innerText = selection.value
-   let z = button.parentNode.querySelector("div")
-   z.appendChild(intervEle)
+   if (checkList.includes(selection.value)){
+    return;
+   }
+   else{
+    let intervEle = document.createElement("div")
+    intervEle.className = "intervEle"
+    intervEle.addEventListener("click", function(){
+      delet(intervEle)
+    })
+    intervEle.innerText = selection.value
+    let z = button.parentNode.querySelector("div")
+    z.appendChild(intervEle)
+    checkList.push(selection.value)
+    console.log(checkList)
+   }  
  }
 
 
 //fonction qui supprime les éléments ajoutés
-//function delet()
+function delet(div) {
+  let index = checkList.indexOf(div.innerText);
+  if (index !== -1) {
+      checkList.splice(index, 1);
+  }
+  div.remove();
+}
