@@ -52,14 +52,16 @@ class GroupCours():
                 raise Exception(f"{cluster_type} is not an acceptable string")
         self.dataframe = self.dataframe.assign(similarity=similarity_list)
 
+        self.dataframe = self.dataframe.sort_values(by=['similarity'])
+
         print(self.dataframe[['nom', 'similarity']].head(10))
         print(self.dataframe.nlargest(10, 'similarity'))
 
     def send_data(self):
         pass
 
-    def export_data(self, type="csv"):
-        pass
+    def export_data(self, filename, type="csv"):
+        self.dataframe.to_csv(f'{filename}.csv')
 
     def build_model(self):
         #create corpus
