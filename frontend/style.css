@@ -17,6 +17,11 @@ h6 {
   display: none
 }
 
+.affichage {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Pour créer une grille flexible */
+  gap: 10px; /* Pour espacer les éléments si nécessaire */
+}
 
 .filter_teachers {
   color: black;

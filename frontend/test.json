@@ -3,5 +3,6 @@
     "similarity": "9.5",
     "teacher": "Test enseignant",
     "description": "Lien vers la description",
-    "credit": "3"
+    "credit": "3",
+    "horaire": "lundi 8:30-9:15",
 }
