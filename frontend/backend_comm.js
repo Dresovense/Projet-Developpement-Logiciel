@@ -13,6 +13,7 @@ function getStartData(){
     console.log("Getting start data ...");
     xhr = getXmlHttpResquestObject();
     xhr.onreadystatechange = startDataCallback;
+
     xhr.open("GET", "http://localhost:6969/startingData", true);
     xhr.send(null)
 }
@@ -79,5 +80,7 @@ function similarityCallback() {
         //CREER ICI L'INPUT DE LA SIMILARITé DANS LE CODE SELON CE QUE CA RENVOIT
     }
 }
+
+
 
 getStartData()

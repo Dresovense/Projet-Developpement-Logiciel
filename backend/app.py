@@ -31,6 +31,7 @@ def startingData():
     print(dictionnaire)
     return jsonify(dictionnaire)
 
+
 @app.route("/similarity", methods=["POST"])
 def similarity():
     received_data = request.get_json()
@@ -54,6 +55,7 @@ def similarity():
     cours2.similarity(cours1, cluster_type=received_data["similarity_type"])
     
     return flask.Response(response=json.dumps(cours2.dataframe.to_dict()), status=201)
+
 
 if __name__ == "__main__":
     app.run("localhost", 6969)
