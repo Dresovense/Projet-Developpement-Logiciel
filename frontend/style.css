@@ -19,8 +19,27 @@ h6 {
 
 .affichage {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Pour créer une grille flexible */
-  gap: 10px; /* Pour espacer les éléments si nécessaire */
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+  gap: 10px; 
+}
+
+
+.intervEle{
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: gray solid 2px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.intervEle:hover{
+  opacity: 60%;
+}
+
+.affichageIntervSelec{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+  gap: 10px; 
 }
 
 .filter_teachers {

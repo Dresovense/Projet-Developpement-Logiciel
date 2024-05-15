@@ -30,9 +30,12 @@ function openMenu(evt, menuName) {
  function ajout(button){
    let selection = button.parentNode.querySelector("select")
    let intervEle = document.createElement("div")
+   intervEle.className = "intervEle"
    intervEle.innerText = selection.value
    let z = button.parentNode.querySelector("div")
    z.appendChild(intervEle)
  }
 
 
+//fonction qui supprime les éléments ajoutés
+//function delet()
