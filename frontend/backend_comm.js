@@ -53,7 +53,7 @@ function startDataCallback() {
 }
 
 let test_data = {
-    language: ["français"],
+    languages: ["français"],
     branches: ["Informatique pour les sciences humaines", "Linguistique"],
     credits: null,
     intervenants: null,
@@ -76,8 +76,8 @@ function similarityCallback() {
     if(xhr.readyState == 4 && xhr.status == 200){
         console.log("Data received!");
         similairty_data = JSON.parse(xhr.responseText);
-
-        //CREER ICI L'INPUT DE LA SIMILARITé DANS LE CODE SELON CE QUE CA RENVOIT
+        console.log(similairty_data)
+        //CREER ICI L'INPUT DE LA SIMILARITé DANS LE CODE SELON CE QUE CA RENVOIT + IL FAUT TRIER PAR SIMILARITé
     }
 }
 
