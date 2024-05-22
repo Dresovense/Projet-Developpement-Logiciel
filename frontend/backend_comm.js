@@ -25,6 +25,8 @@ function startDataCallback() {
         
         createBrancheChoice(jsonData)
         createIntervenantChoice(jsonData)
+        createHoraireChoice(jsonData)
+        
     }
 }
 
@@ -44,18 +46,35 @@ function createBrancheChoice(jsonData) {
 
 //création des options pour le choix des intervenants
 function createIntervenantChoice(jsonData) {
-    intervenant_list = jsonData.intervenants;
+    intervenantList = jsonData.intervenants;
         intervFiltre = document.body.getElementsByClassName("filtre_intervenant");
         console.log(intervFiltre);
         for(let j = 0; j< intervFiltre.length; j++){
-            for (let i = 0; i< intervenant_list.length; i++){
+            for (let i = 0; i< intervenantList.length; i++){
                 var option = document.createElement("option");
-                option.text = intervenant_list[i][0];
-                option.id = intervenant_list[i][1];
+                option.text = intervenantList[i][0];
+                option.id = intervenantList[i][1];
                 intervFiltre[j].add(option);
             }
         }
 }
+
+//création des options pour le filtre horaire
+function createHoraireChoice(jsonData) {
+    horaireListe = jsonData.horaires;
+    horaireFiltre = document.getElementsByClassName("filtre_horaire");
+    console.log(horaireFiltre);
+    for(let j = 0; j< horaireFiltre.length; j++){
+        for (let i = 0; i< horaireListe.length; i++){
+            var option = document.createElement("option");
+            option.text = `${horaireListe[i][1]} ${horaireListe[i][2]}`;
+            option.id = horaireListe[i][0];
+            horaireFiltre[j].add(option);
+        }
+    }
+}
+
+
 
 let test_data = {
     languages: null,

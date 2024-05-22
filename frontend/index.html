@@ -56,7 +56,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
               <select name="intervenant" class="filtre_intervenant">
                 <option disabled selected value> --Enseignant.e.x.s-- </option>
               </select>
-              <button onclick="ajout(this)">Ajouter</button> <br></br>
+              <button onclick="ajoutInterv(this)">Ajouter</button> <br></br>
               <div id="intervSelec" class="affichageIntervSelec">
               </div><br></br>
             </div>
@@ -65,9 +65,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
               <div onclick="showFilter(this)">Filtre Branche(s)</div>
               <div id="filters" style="display: none;">
                 <select name="branches" class="filtre_branche">
-                  <option disabled selected value> --Branches-- </option>
+                  <option disabled selected value> --Branche(s)-- </option>
                 </select>
-                </div>
+                <button onclick="ajoutBranche(this)">Ajouter</button> <br></br>
+                <div id="brancheSelec" class="affichageBrancheSelec">
+                </div><br></br>
+              </div>
             </div>
 
             <div class="filter_credits" >
@@ -77,6 +80,18 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
                   <option disabled selected value> --crédit(s)-- </option>
                 </select>
                 </div>
+            </div>
+
+            <div class="filter_horaire" >
+              <div onclick="showFilter(this)">Filtre horaire</div>
+              <div id="filters" style="display: none;">
+                <select name="horaire" class="filtre_horaire">
+                  <option disabled selected value> --horaire-- </option>
+                </select>
+                <button onclick="ajoutHoraire(this)">Ajouter</button> <br></br>
+                <div id="horaireSelec" class="affichageHoraireSelec">
+                </div><br></br>
+              </div>
             </div>
 
             <footer class="w3-container w3-theme-l1">

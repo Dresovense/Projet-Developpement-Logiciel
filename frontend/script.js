@@ -28,7 +28,7 @@ function openMenu(evt, menuName) {
 
  //fonction d'ajout des éléments des filtres
  let checkList = []
- function ajout(button){
+ function ajoutInterv(button){
    let selection = button.parentNode.querySelector("select")
    if (checkList.includes(selection.value)){
     return;
@@ -46,6 +46,44 @@ function openMenu(evt, menuName) {
     console.log(checkList)
    }  
  }
+
+function ajoutBranche(button){
+  let selection = button.parentNode.querySelector("select")
+  if (checkList.includes(selection.value)){
+   return;
+  }
+  else{
+   let brancheEle = document.createElement("div")
+   brancheEle.className = "brancheEle"
+   brancheEle.addEventListener("click", function(){
+     delet(brancheEle)
+   })
+   brancheEle.innerText = selection.value
+   let z = button.parentNode.querySelector("div")
+   z.appendChild(brancheEle)
+   checkList.push(selection.value)
+   console.log(checkList)
+  } 
+}
+
+function ajoutHoraire(button){
+  let selection = button.parentNode.querySelector("select")
+  if (checkList.includes(selection.value)){
+   return;
+  }
+  else{
+   let horaireEle = document.createElement("div")
+   horaireEle.className = "brancheEle"
+   horaireEle.addEventListener("click", function(){
+     delet(horaireEle)
+   })
+   horaireEle.innerText = selection.value
+   let z = button.parentNode.querySelector("div")
+   z.appendChild(horaireEle)
+   checkList.push(selection.value)
+   console.log(checkList)
+  } 
+}
 
 
 //fonction qui supprime les éléments ajoutés
