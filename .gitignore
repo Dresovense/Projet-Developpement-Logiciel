@@ -3,3 +3,5 @@
 backend\test.py
 /backend/__pycache__
 /A_SUPPRIMER_interface_react
+*.xlsx
+*.csv

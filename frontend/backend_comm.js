@@ -94,7 +94,6 @@ function similarityCallback() {
         console.log(similarity_data)
         similarity_data = similarity_data.sort(function(a, b) {return b.similarity - a.similarity})
         createCourseDiv(similarity_data)
-        //CREER ICI L'INPUT DE LA SIMILARITé DANS LE CODE SELON CE QUE CA RENVOIT + IL FAUT TRIER PAR SIMILARITé
     }
 }
 
