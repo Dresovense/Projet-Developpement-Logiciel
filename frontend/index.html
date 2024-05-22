@@ -28,12 +28,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
     <div class="w3-row w3-border w3-border-dark-grey">
       <div>
         Branche 1
-        <select name="branche1" id="branche1" class = "filtre_branche">
+        <select name="branche1" id="branche1" class = "filtre_branche" onchange="changeSelectedBranche1(this.value)">
         </select>
       </div>
       <div>
         Branche 2
-        <select name="branche2" id="branche2" class = "filtre_branche">
+        <select name="branche2" id="branche2" class = "filtre_branche" onchange="changeSelectedBranche2(this.value)">
         </select>
       </div>
       <a class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">

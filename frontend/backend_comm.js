@@ -59,12 +59,22 @@ function createIntervenantChoice(jsonData) {
 
 let test_data = {
     languages: null,
-    branches: ["Informatique pour les sciences humaines", "Linguistique"],
+    branches: ["", ""],
     credits: null,
     intervenants: null,
     semester: null,
     horaires: null,
     similarity_type: "min"
+}
+
+function changeSelectedBranche1(branche1_selected) {
+    test_data.branches[0] = branche1_selected;
+    console.log(test_data.branches[0])
+}
+
+function changeSelectedBranche2(branche2_selected) {
+    test_data.branches[1] = branche2_selected;
+    console.log(test_data.branches[1])
 }
 
 function getSimilarity(){
