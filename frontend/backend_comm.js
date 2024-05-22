@@ -78,12 +78,22 @@ function createHoraireChoice(jsonData) {
 
 let test_data = {
     languages: null,
-    branches: ["Informatique pour les sciences humaines", "Linguistique"],
+    branches: ["Allemand", "Allemand"],
     credits: null,
     intervenants: null,
     semester: null,
     horaires: null,
     similarity_type: "min"
+}
+
+function changeSelectedBranche1(branche1_selected) {
+    test_data.branches[0] = branche1_selected;
+    console.log(test_data.branches[0])
+}
+
+function changeSelectedBranche2(branche2_selected) {
+    test_data.branches[1] = branche2_selected;
+    console.log(test_data.branches[1])
 }
 
 function getSimilarity(){
@@ -98,20 +108,20 @@ function getSimilarity(){
 
 function similarityCallback() {
     if(xhr.readyState == 4 && xhr.status == 200){
+        const maxDiv = 10;
         console.log("Data received!");
         similarity_data = JSON.parse(xhr.responseText);
         console.log(similarity_data)
         similarity_data = similarity_data.sort(function(a, b) {return b.similarity - a.similarity})
-        createCourseDiv(similarity_data)
-        //CREER ICI L'INPUT DE LA SIMILARITé DANS LE CODE SELON CE QUE CA RENVOIT + IL FAUT TRIER PAR SIMILARITé
+        createCourseDiv(similarity_data, maxDiv, 0)
     }
 }
 
- //afficher les cours
- function createCourseDiv(coursesData) { 
+//afficher les cours
+function createCourseDiv(coursesData, maxDivPerPage, firstDiv) { 
     let divCourse = document.getElementById("Pizza")
     divCourse.innerHTML = ""
-    for (let i = 0; i < coursesData.length; i++) {
+    for (let i = firstDiv; i < maxDivPerPage; i++) {
       const maDiv = document.createElement("div");
 
       const title = document.createElement("h1");
@@ -146,7 +156,7 @@ function similarityCallback() {
       maDiv.appendChild(information);
       divCourse.appendChild(maDiv);
     }
-  }
+}
 
 getStartData()
 
