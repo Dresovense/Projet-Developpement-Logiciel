@@ -59,7 +59,7 @@ function createIntervenantChoice(jsonData) {
 
 let test_data = {
     languages: null,
-    branches: ["", ""],
+    branches: ["Allemand", "Allemand"],
     credits: null,
     intervenants: null,
     semester: null,
@@ -89,19 +89,20 @@ function getSimilarity(){
 
 function similarityCallback() {
     if(xhr.readyState == 4 && xhr.status == 200){
+        const maxDiv = 10;
         console.log("Data received!");
         similarity_data = JSON.parse(xhr.responseText);
         console.log(similarity_data)
         similarity_data = similarity_data.sort(function(a, b) {return b.similarity - a.similarity})
-        createCourseDiv(similarity_data)
+        createCourseDiv(similarity_data, maxDiv, 0)
     }
 }
 
- //afficher les cours
- function createCourseDiv(coursesData) { 
+//afficher les cours
+function createCourseDiv(coursesData, maxDivPerPage, firstDiv) { 
     let divCourse = document.getElementById("Pizza")
     divCourse.innerHTML = ""
-    for (let i = 0; i < coursesData.length; i++) {
+    for (let i = firstDiv; i < maxDivPerPage; i++) {
       const maDiv = document.createElement("div");
 
       const title = document.createElement("h1");
@@ -136,7 +137,7 @@ function similarityCallback() {
       maDiv.appendChild(information);
       divCourse.appendChild(maDiv);
     }
-  }
+}
 
 getStartData()
 
