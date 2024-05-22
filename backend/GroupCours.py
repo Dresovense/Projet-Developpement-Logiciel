@@ -58,14 +58,19 @@ class GroupCours():
         print(self.dataframe.nlargest(10, 'similarity'))
         #print(self.dataframe[['nom', 'similarity']].head(10))
         #print(self.dataframe.nlargest(10, 'similarity'))
-        self.export_data("my_results")
+        self.export_data("my_results", "xlsx")
 
+    # A ENLEVER ?
     def send_data(self):
         pass
 
-    def export_data(self, filename:str, type="csv"):
+    def export_data(self, filename:str, type:str="xlsx"):
 
-        self.dataframe.to_excel("my_excel_results.xlsx", columns=["nom", "langage", "credits", "url", "similarity", "prog_op"])
+        if type == "xlsx":
+            self.dataframe.to_excel(f"{filename}.xlsx", columns=["nom", "langage", "credits", "url", "similarity", "prog_op"])
+        if type == "csv":
+            self.dataframe.to_csv(f"{filename}.csv", columns=["nom", "langage", "credits", "url", "similarity", "prog_op"])
+
 
     def build_model(self):
         #create corpus
