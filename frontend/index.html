@@ -53,6 +53,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             </header>
 
             <!--création des filtres avec menu déroulant-->
+            <div class="random">Recherche Avancée</div>
+
             <div class="filter_teachers">              
               <div onclick="showFilter(this)">Filtre Enseignant.e.x(.s)</div>
               <div id="filters" style="display: none;">
@@ -76,13 +78,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
               </div>
             </div>
 
+            <div class="random">Organisation du tri</div>
+
             <div class="filter_credits" >
               <div onclick="showFilter(this)">Filtre crédits</div>
               <div id="filters" style="display: none;">
-                <select name="credits" class="filtre_credits">
-                  <option disabled selected value> --crédit(s)-- </option>
-                </select>
+                <div class="titi">
+                  <label for="min-value">Min(0-10):</label>
+                  <input type="number" id="min-value" name="min-value" min="0" max="10" required>
+                  
+                  <label for="max-value">Max(0-10):</label>
+                  <input type="number" id="max-value" name="max-value" min="0" max="10" required>
                 </div>
+              </div>
             </div>
 
             <div class="filter_horaire" >
