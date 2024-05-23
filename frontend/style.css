@@ -13,6 +13,13 @@ h6 {
   font-family: "Arial", sans-serif
 }
 
+.numPage {
+  color: white;
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+}
+
 .menu {
   display: none
 }

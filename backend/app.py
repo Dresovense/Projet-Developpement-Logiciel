@@ -76,12 +76,8 @@ def similarity():
 
     # Calculate similarity:
     cours1, cours2 = search_obj.get_data(
-        languages=received_data["languages"],
-        credits=received_data["credits"],
         intervenants=received_data["intervenants"],
         branches=received_data["branches"],
-        semester=received_data["semester"],
-        horaires=received_data["horaires"],
         return_others=True)
     cours1 = GroupCours(cours1)
     cours2 = GroupCours(cours2)

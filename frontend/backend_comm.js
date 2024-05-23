@@ -113,7 +113,61 @@ function similarityCallback() {
         similarity_data = JSON.parse(xhr.responseText);
         console.log(similarity_data)
         similarity_data = similarity_data.sort(function(a, b) {return b.similarity - a.similarity})
+        createPageButtons(similarity_data.length, maxDiv)
         createCourseDiv(similarity_data, maxDiv, 0)
+    }
+}
+
+
+//Définir liste pages
+let pageList = [];
+
+//Définir littleDot
+const littleDot = document.createElement("li");
+const littleDot2 = document.createElement("li");
+
+//Créer boutons pour les pages
+function createPageButtons(numberEntry, maxDiv) {
+    const footer = document.getElementById("pageNumber");
+    littleDot.style.display = "None";
+    littleDot.innerHTML = "(...)";
+    littleDot2.innerHTML = "(...)";
+    footer.appendChild(littleDot);
+    for (let i = 0; i < Math.ceil(numberEntry/10); i++){
+        const page = document.createElement("li");
+        page.innerHTML = i+1;
+        page.addEventListener("click", function () {
+            createCourseDiv(similarity_data, maxDiv, i*maxDiv);
+            updateButtonPage(i);
+        })
+        page.id = i;
+        pageList.push(page);
+        footer.appendChild(page);
+        if (i > 2) {
+            page.style.display = "None";
+        }
+    }
+    footer.appendChild(littleDot2);
+}
+
+function updateButtonPage(pageNumber) {
+    for (i = 0;i < pageList.length;i++) {
+        if (pageNumber > 2) {
+            littleDot.style.display = "flex";
+        }
+        if (pageNumber < 2) {
+            littleDot.style.display = "None";
+        }
+        if (pageNumber > pageList.length-4) {
+            littleDot2.style.display = "None";
+        }
+        if (pageNumber < pageList.length-4) {
+            littleDot2.style.display = "flex";
+        }
+        if (i > pageNumber-3 && i < pageNumber+3) {
+            pageList[i].style.display = "flex";
+        }
+        else {pageList[i].style.display = "None";}
     }
 }
 
@@ -121,7 +175,7 @@ function similarityCallback() {
 function createCourseDiv(coursesData, maxDivPerPage, firstDiv) { 
     let divCourse = document.getElementById("Pizza")
     divCourse.innerHTML = ""
-    for (let i = firstDiv; i < maxDivPerPage; i++) {
+    for (let i = firstDiv; i < maxDivPerPage+firstDiv; i++) {
       const maDiv = document.createElement("div");
 
       const title = document.createElement("h1");
