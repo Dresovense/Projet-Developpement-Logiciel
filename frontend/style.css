@@ -22,8 +22,14 @@ h6 {
   padding: 20px;
 }
 
+.numPagination {
+  border-style: solid;
+  border-width: 20px;
+  border-color: white;
+}
+
 .littleDot {
-  
+  background-color: #616161;
 }
 
 .menu {

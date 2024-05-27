@@ -86,11 +86,13 @@ let test_data = {
     similarity_type: "min"
 }
 
+//Récupère la valeur de la 1ère branche selectionnée
 function changeSelectedBranche1(branche1_selected) {
     test_data.branches[0] = branche1_selected;
     console.log(test_data.branches[0])
 }
 
+//Récupère la valeur de la 2ème branche selectionnée
 function changeSelectedBranche2(branche2_selected) {
     test_data.branches[1] = branche2_selected;
     console.log(test_data.branches[1])
@@ -123,6 +125,7 @@ function similarityCallback() {
 
 //Définir liste pages
 let pageList = [];
+pageList.className = "numPagination";
 
 //Définir littleDot
 const littleDot = document.createElement("li");
@@ -169,6 +172,7 @@ function createPageButtons(numberEntry, maxDiv) {
     footer.appendChild(scrollbarPageNumber);
 }
 
+//Affiche et cache les numéros de page
 function updateButtonPage(pageNumber) {
     for (i = 0;i < pageList.length;i++) {
         if (pageNumber > 1) {
@@ -239,6 +243,7 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
     }
 }
 
+//Remplacement texte de recherche + désactivation bouton pendant chargement
 function desactivButtonSearch() {
     var buttonSearchInactiv = document.getElementById("searchButton");
     var replacementText = "En cours...";
@@ -246,6 +251,7 @@ function desactivButtonSearch() {
     buttonSearchInactiv.disabled = true;
 }
 
+//Reactivation du bouton de recherche
 function activButtonSearch() {
     var buttonSearchActiv = document.getElementById("searchButton");
     var replacementText2 = "Rechercher";
@@ -253,6 +259,7 @@ function activButtonSearch() {
     buttonSearchActiv.disabled = false;
 }
 
+//Recréation de la liste des divs de chaque page en fonction du numéro de page choisi
 function redirectToPage() {
     let pageNumber = document.getElementById("scrollbarPageNumber").value;
     console.log(pageNumber-1);
