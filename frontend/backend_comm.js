@@ -138,8 +138,8 @@ function createPageButtons(numberEntry, maxDiv) {
     littleDot.style.display = "None";
     littleDot.innerHTML = "(...)";
     littleDot2.innerHTML = "(...)";
-    littleDot.className = "littleDot";
-    littleDot2.className = "littleDot";
+    littleDot.classList.add("littleDot", "prevent-select");
+    littleDot2.classList.add("littleDot", "prevent-select");
     footer.appendChild(littleDot);
     selectPageButton.innerHTML = "Aller à";
     selectPageButton.addEventListener("click", function(){redirectToPage()});
@@ -148,11 +148,12 @@ function createPageButtons(numberEntry, maxDiv) {
     scrollbarPageNumber.id = "scrollbarPageNumber";
     for (let i = 0; i < Math.ceil(numberEntry/10); i++){
         const page = document.createElement("button");
-        page.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey";
+        page.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey prevent-select";
         page.innerHTML = i+1;
         page.addEventListener("click", function () {
             createCourseDiv(similarity_data, maxDiv, i*maxDiv);
             updateButtonPage(i);
+            window.scrollTo(0, document.body.scrollHeight);
         })
         page.id = i;
         pageList.push(page);
@@ -261,6 +262,7 @@ function activButtonSearch() {
 
 //Recréation de la liste des divs de chaque page en fonction du numéro de page choisi
 function redirectToPage() {
+    window.scrollTo(0, document.body.scrollHeight);
     let pageNumber = document.getElementById("scrollbarPageNumber").value;
     console.log(pageNumber-1);
     createCourseDiv(similarity_data, 10, (pageNumber-1)*10);
