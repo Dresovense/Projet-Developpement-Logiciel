@@ -97,6 +97,7 @@ function changeSelectedBranche2(branche2_selected) {
 }
 
 function getSimilarity(){
+    desactivButtonSearch();
     console.log("Getting similarity ...");
     xhr = getXmlHttpResquestObject();
     xhr.onreadystatechange = similarityCallback;
@@ -115,6 +116,7 @@ function similarityCallback() {
         similarity_data = similarity_data.sort(function(a, b) {return b.similarity - a.similarity})
         createPageButtons(similarity_data.length, maxDiv)
         createCourseDiv(similarity_data, maxDiv, 0)
+        activButtonSearch()
     }
 }
 
@@ -125,6 +127,7 @@ let pageList = [];
 //Définir littleDot
 const littleDot = document.createElement("li");
 const littleDot2 = document.createElement("li");
+const selectPageButton = document.createElement("button");
 
 //Créer boutons pour les pages
 function createPageButtons(numberEntry, maxDiv) {
@@ -132,9 +135,17 @@ function createPageButtons(numberEntry, maxDiv) {
     littleDot.style.display = "None";
     littleDot.innerHTML = "(...)";
     littleDot2.innerHTML = "(...)";
+    littleDot.className = "littleDot";
+    littleDot2.className = "littleDot";
     footer.appendChild(littleDot);
+    selectPageButton.innerHTML = "Aller à";
+    selectPageButton.addEventListener("click", function(){redirectToPage()});
+    selectPageButton.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey";
+    var scrollbarPageNumber = document.createElement("select");
+    scrollbarPageNumber.id = "scrollbarPageNumber";
     for (let i = 0; i < Math.ceil(numberEntry/10); i++){
-        const page = document.createElement("li");
+        const page = document.createElement("button");
+        page.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey";
         page.innerHTML = i+1;
         page.addEventListener("click", function () {
             createCourseDiv(similarity_data, maxDiv, i*maxDiv);
@@ -143,28 +154,36 @@ function createPageButtons(numberEntry, maxDiv) {
         page.id = i;
         pageList.push(page);
         footer.appendChild(page);
-        if (i > 2) {
+        if (i > 1) {
             page.style.display = "None";
         }
     }
+    for (let i = 0; i < pageList.length; i++){
+        var option = document.createElement("option");
+        option.text = i+1;
+        option.id = i+1;
+        scrollbarPageNumber.add(option);
+    }
     footer.appendChild(littleDot2);
+    footer.appendChild(selectPageButton)
+    footer.appendChild(scrollbarPageNumber);
 }
 
 function updateButtonPage(pageNumber) {
     for (i = 0;i < pageList.length;i++) {
-        if (pageNumber > 2) {
+        if (pageNumber > 1) {
             littleDot.style.display = "flex";
         }
-        if (pageNumber < 2) {
+        if (pageNumber < 1) {
             littleDot.style.display = "None";
         }
-        if (pageNumber > pageList.length-4) {
+        if (pageNumber > pageList.length-3) {
             littleDot2.style.display = "None";
         }
-        if (pageNumber < pageList.length-4) {
+        if (pageNumber < pageList.length-3) {
             littleDot2.style.display = "flex";
         }
-        if (i > pageNumber-3 && i < pageNumber+3) {
+        if (i > pageNumber-2 && i < pageNumber+2) {
             pageList[i].style.display = "flex";
         }
         else {pageList[i].style.display = "None";}
@@ -188,7 +207,15 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
       information.appendChild(teacher);
 
       const schedule = document.createElement("p");
-      schedule.innerText = `Horaire: ${coursesData[i].horaires[0]}-${coursesData[i].horaires[1]}`;
+      schedule.innerHTML = "Horaire: <br>"
+      for (let r = 1; r < coursesData[i].horaires.length;r++) {
+        var startCourse = coursesData[i].horaires[r]-1;
+        schedule.innerHTML += jsonData.horaires[startCourse][1];
+        schedule.innerHTML += " ";
+        schedule.innerHTML += jsonData.horaires[startCourse][2];
+        schedule.innerHTML += "<br>";
+      }
+      //schedule.innerText = `Horaire: ${coursesData[i].horaires[0]}-${coursesData[i].horaires[1]}`;
       information.appendChild(schedule);
 
       const credits = document.createElement("p");
@@ -210,6 +237,27 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
       maDiv.appendChild(information);
       divCourse.appendChild(maDiv);
     }
+}
+
+function desactivButtonSearch() {
+    var buttonSearchInactiv = document.getElementById("searchButton");
+    var replacementText = "En cours...";
+    buttonSearchInactiv.innerHTML = replacementText;
+    buttonSearchInactiv.disabled = true;
+}
+
+function activButtonSearch() {
+    var buttonSearchActiv = document.getElementById("searchButton");
+    var replacementText2 = "Rechercher";
+    buttonSearchActiv.innerHTML = replacementText2;
+    buttonSearchActiv.disabled = false;
+}
+
+function redirectToPage() {
+    let pageNumber = document.getElementById("scrollbarPageNumber").value;
+    console.log(pageNumber-1);
+    createCourseDiv(similarity_data, 10, (pageNumber-1)*10);
+    updateButtonPage(pageNumber-1);
 }
 
 getStartData()
