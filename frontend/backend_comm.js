@@ -3,7 +3,7 @@ var xhr = null
 //Test données
 let test_data = {
     branches: [null,null],
-    intervenants: null,
+    intervenants: [],
     similarity_type: "median"
 }
 
@@ -11,7 +11,7 @@ let last_test_data = {}
 
 let filtred_data = {
     languages: ["français"],
-    credits: [2, 5],
+    credits: [0, 10],
     semester: ["printemps","automne","Annuel"],
     horaire: null,
     progOption: true,
@@ -41,6 +41,8 @@ function startDataCallback() {
         createBrancheChoice(jsonData)
         createIntervenantChoice(jsonData)
         createHoraireChoice(jsonData)
+
+        createDefaultHoraires(jsonData)
         
     }
 }
@@ -89,7 +91,7 @@ function createHoraireChoice(jsonData) {
     for(let j = 0; j< horaireFiltre.length; j++){
         for (let i = 0; i< horaireListe.length; i++){
             var option = document.createElement("option");
-            option.text = `${horaireListe[i][1]} ${horaireListe[i][2]}`;
+            option.text = `${horaireListe[i][1]}${horaireListe[i][2]}`;
             option.id = horaireListe[i][0];
             horaireFiltre[j].add(option);
         }
@@ -156,8 +158,8 @@ function similarityCallback() {
 }
 
 function createCourses_Buttons(similarity_data, maxDiv){
-    createPageButtons(similarity_data.length, maxDiv)
-    createCourseDiv(similarity_data, maxDiv, 0)
+    let length_courses = createCourseDiv(similarity_data, maxDiv, 0)
+    createPageButtons(length_courses, maxDiv)
 }
 
 
@@ -173,42 +175,46 @@ const selectPageButton = document.createElement("button");
 //Créer boutons pour les pages
 function createPageButtons(numberEntry, maxDiv) {
     const footer = document.getElementById("pageNumber");
-    littleDot.style.display = "None";
-    littleDot.innerHTML = "(...)";
-    littleDot2.innerHTML = "(...)";
-    littleDot.classList.add("littleDot", "prevent-select");
-    littleDot2.classList.add("littleDot", "prevent-select");
-    footer.appendChild(littleDot);
-    selectPageButton.innerHTML = "Aller à";
-    selectPageButton.addEventListener("click", function(){redirectToPage()});
-    selectPageButton.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey";
-    var scrollbarPageNumber = document.createElement("select");
-    scrollbarPageNumber.id = "scrollbarPageNumber";
-    for (let i = 0; i < Math.ceil(numberEntry/10); i++){
-        const page = document.createElement("button");
-        page.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey prevent-select";
-        page.innerHTML = i+1;
-        page.addEventListener("click", function () {
-            createCourseDiv(similarity_data, maxDiv, i*maxDiv);
-            updateButtonPage(i);
-            window.scrollTo(0, document.body.scrollHeight);
-        })
-        page.id = i;
-        pageList.push(page);
-        footer.appendChild(page);
-        if (i > 1) {
-            page.style.display = "None";
+    footer.innerHTML = ""
+    console.log(numberEntry)
+    if(numberEntry > 0){
+        littleDot.style.display = "None";
+        littleDot.innerHTML = "(...)";
+        littleDot2.innerHTML = "(...)";
+        littleDot.classList.add("littleDot", "prevent-select");
+        littleDot2.classList.add("littleDot", "prevent-select");
+        footer.appendChild(littleDot);
+        selectPageButton.innerHTML = "Aller à";
+        selectPageButton.addEventListener("click", function(){redirectToPage()});
+        selectPageButton.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey";
+        var scrollbarPageNumber = document.createElement("select");
+        scrollbarPageNumber.id = "scrollbarPageNumber";
+        for (let i = 0; i < Math.ceil(numberEntry/10); i++){
+            const page = document.createElement("button");
+            page.className = "w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey prevent-select";
+            page.innerHTML = i+1;
+            page.addEventListener("click", function () {
+                createCourseDiv(similarity_data, maxDiv, i*maxDiv);
+                updateButtonPage(i);
+                window.scrollTo(0, document.body.scrollHeight);
+            })
+            page.id = i;
+            pageList.push(page);
+            footer.appendChild(page);
+            if (i > 1) {
+                page.style.display = "None";
+            }
         }
+        for (let i = 0; i < pageList.length; i++){
+            var option = document.createElement("option");
+            option.text = i+1;
+            option.id = i+1;
+            scrollbarPageNumber.add(option);
+        }
+        footer.appendChild(littleDot2);
+        footer.appendChild(selectPageButton)
+        footer.appendChild(scrollbarPageNumber);
     }
-    for (let i = 0; i < pageList.length; i++){
-        var option = document.createElement("option");
-        option.text = i+1;
-        option.id = i+1;
-        scrollbarPageNumber.add(option);
-    }
-    footer.appendChild(littleDot2);
-    footer.appendChild(selectPageButton)
-    footer.appendChild(scrollbarPageNumber);
 }
 
 //Affiche et cache les numéros de page
@@ -237,7 +243,7 @@ function updateButtonPage(pageNumber) {
 function createCourseDiv(coursesData, maxDivPerPage, firstDiv) { 
     //APPELLER FONCTIONS DE FILTRES!!!
     console.log(coursesData)
-    let coursesDataFiltered = filtre_credit(coursesData, filtred_data.credits)
+    var coursesDataFiltered = filtre_credit(coursesData, filtred_data.credits)
     console.log(coursesDataFiltered)
     coursesDataFiltered = filtre_horaire(coursesDataFiltered, filtred_data.horaire)
     console.log(coursesDataFiltered)
@@ -249,55 +255,62 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
     let divCourse = document.getElementById("Pizza")
     divCourse.style.display = "block"
     divCourse.innerHTML = ""
-    for (let i = firstDiv; i < maxDivPerPage+firstDiv; i++) {
-        console.log("test")
-      const maDiv = document.createElement("div");
-        maDiv.className = "courseDiv"
-
-      const title = document.createElement("h1");
-      title.innerText = `${coursesDataFiltered[i].nom}`;
-
-      const information = document.createElement("h4");
-      information.className = "affichage";
-      const teacher = document.createElement("p");
-      teacher.innerHTML = "Intervenant(s): <br>"
-      for(let j = 0; j < coursesDataFiltered[i].intervenants.length; j++){
-        teacher.innerHTML += `${coursesDataFiltered[i].intervenants[j]}<br>`
-      }
-      information.appendChild(teacher);
-
-      const schedule = document.createElement("p");
-      schedule.innerHTML = "Horaire: <br>"
-      for (let r = 0; r < coursesDataFiltered[i].horaires.length;r++) {
-        var startCourse = coursesDataFiltered[i].horaires[r]-1;
-        schedule.innerHTML += jsonData.horaires[startCourse][1];
-        schedule.innerHTML += " ";
-        schedule.innerHTML += jsonData.horaires[startCourse][2];
-        schedule.innerHTML += "<br>";
-      }
-      //schedule.innerText = `Horaire: ${coursesData[i].horaires[0]}-${coursesData[i].horaires[1]}`;
-      information.appendChild(schedule);
-
-      const credits = document.createElement("p");
-      credits.innerText = `Crédits: ${coursesDataFiltered[i].credits}`;
-      information.appendChild(credits);
-
-      const similarity = document.createElement("p");
-      similarity.innerText = `Similarité: ${Math.round(((coursesDataFiltered[i].similarity*100) + Number.EPSILON) * 100) / 100}%`;
-      information.appendChild(similarity);
-
-      const urlCourse = document.createElement("a");
-      urlCourse.innerText = `Voir plus`;
-      urlCourse.href = `${coursesDataFiltered[i].url}`;
-      urlCourse.target = `_blank`;
-      urlCourse.rel = `noopener noreferrer`;
-      information.appendChild(urlCourse);
-
-      maDiv.appendChild(title);
-      maDiv.appendChild(information);
-      divCourse.appendChild(maDiv);
-      
+    try{
+        for (let i = firstDiv; i < maxDivPerPage+firstDiv; i++) {
+            console.log("test")
+          const maDiv = document.createElement("div");
+            maDiv.className = "courseDiv"
+    
+          const title = document.createElement("h1");
+          title.innerText = `${coursesDataFiltered[i].nom}`;
+    
+          const information = document.createElement("h4");
+          information.className = "affichage";
+          const teacher = document.createElement("p");
+          teacher.innerHTML = "Intervenant(s): <br>"
+          for(let j = 0; j < coursesDataFiltered[i].intervenants.length; j++){
+            teacher.innerHTML += `${coursesDataFiltered[i].intervenants[j]}<br>`
+          }
+          information.appendChild(teacher);
+    
+          const schedule = document.createElement("p");
+          schedule.innerHTML = "Horaire: <br>"
+          for (let r = 0; r < coursesDataFiltered[i].horaires.length;r++) {
+            var startCourse = coursesDataFiltered[i].horaires[r]-1;
+            schedule.innerHTML += jsonData.horaires[startCourse][1];
+            schedule.innerHTML += " ";
+            schedule.innerHTML += jsonData.horaires[startCourse][2];
+            schedule.innerHTML += "<br>";
+          }
+          //schedule.innerText = `Horaire: ${coursesData[i].horaires[0]}-${coursesData[i].horaires[1]}`;
+          information.appendChild(schedule);
+    
+          const credits = document.createElement("p");
+          credits.innerText = `Crédits: ${coursesDataFiltered[i].credits}`;
+          information.appendChild(credits);
+    
+          const similarity = document.createElement("p");
+          similarity.innerText = `Similarité: ${Math.round(((coursesDataFiltered[i].similarity*100) + Number.EPSILON) * 100) / 100}%`;
+          information.appendChild(similarity);
+    
+          const urlCourse = document.createElement("a");
+          urlCourse.innerText = `Voir plus`;
+          urlCourse.href = `${coursesDataFiltered[i].url}`;
+          urlCourse.target = `_blank`;
+          urlCourse.rel = `noopener noreferrer`;
+          information.appendChild(urlCourse);
+    
+          maDiv.appendChild(title);
+          maDiv.appendChild(information);
+          divCourse.appendChild(maDiv);
+          
+        }
     }
+    catch(err){
+        console.error(err)
+        alert("Les paramètres choisis ne renvoient aucun cours")
+    }
+    return coursesDataFiltered.length
 }
 
 function filtre_credit(coursesData, filter_list){

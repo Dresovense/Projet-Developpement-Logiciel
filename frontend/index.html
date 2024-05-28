@@ -53,14 +53,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             <header class="w3-container w3-theme-l1"> 
               <span onclick="document.getElementById('id01').style.display='none'"
               class="w3-button w3-display-topright">×</span>
-              <h1>Filtres</h1>
+              <h1 class="prevent-select">Filtres</h1>
             </header>
 
             <!--création des filtres avec menu déroulant-->
-            <div class="random">Recherche Avancée</div>
+            <div class="random prevent-select">Recherche Avancée</div>
 
             <div class="filter_teachers">              
-              <div onclick="showFilter(this)">Filtre Enseignant.e.x(.s)</div>
+              <div onclick="showFilter(this)" class="prevent-select">Filtre Enseignant.e.x(.s)</div>
               <div id="filters" style="display: none;">
               <select name="intervenant" class="filtre_intervenant">
                 <option disabled selected value> --Enseignant.e.x.s-- </option>
@@ -71,7 +71,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             </div>
 
             <div class="filter_branches">
-              <div onclick="showFilter(this)">Filtre Branche(s)</div>
+              <div onclick="showFilter(this)" class="prevent-select">Filtre Branche(s)</div>
               <div id="filters" style="display: none;">
                 <select name="branches" class="filtre_branche">
                   <option disabled selected value> --Branche(s)-- </option>
@@ -82,23 +82,23 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
               </div>
             </div>
 
-            <div class="random">Organisation du tri</div>
+            <div class="random" class="prevent-select">Organisation du tri</div>
 
             <div class="filter_credits" >
-              <div onclick="showFilter(this)">Filtre crédits</div>
+              <div onclick="showFilter(this)" class="prevent-select">Filtre crédits</div>
               <div id="filters" style="display: none;">
                 <div class="titi">
                   <label for="min-value">Min(0-10):</label>
-                  <input type="number" id="min-value" name="min-value" min="0" max="10" required style="width: 110px;">
+                  <input type="number" id="min-value" name="min-value" min="0" max="10" value="0" required style="width: 110px;" oninput="changeValueMin(this)">
                   
                   <label for="max-value">Max(0-10):</label>
-                  <input type="number" id="max-value" name="max-value" min="0" max="10" required style="width: 110px;">
+                  <input type="number" id="max-value" name="max-value" min="0" max="10" value="10" style="width: 110px;" oninput="changeValueMax(this)">
                 </div>
               </div>
             </div>
 
             <div class="filter_horaire" >
-              <div onclick="showFilter(this)">Filtre horaire</div>
+              <div onclick="showFilter(this)" class="prevent-select">Filtre horaire</div>
               <div id="filters" style="display: none;">
                 <select name="horaire" class="filtre_horaire">
                   <option disabled selected value> --horaire-- </option>
@@ -110,25 +110,25 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             </div>
 
             <div class="filter_semestre">
-              <div onclick="showFilter(this)">Filtre semestre</div>
+              <div onclick="showFilter(this)" class="prevent-select">Filtre semestre</div>
               <div class ="titi" id="filters" style="display: none;">
                 <label for="semestre" class="semBox">
-                  <input id="semPrint" type="checkbox" value="Printemps" checked>Printemps
-                  <input id="semAut" type="checkbox" value="Automne" checked>Automne
+                  <input id="semPrint" type="checkbox" value="Printemps" checked onclick="checkSemester()">Printemps
+                  <input id="semAut" type="checkbox" value="Automne" checked onclick="checkSemester()">Automne
                 </label>
               </div>
             </div>
 
             <div>
-              <div onclick="showFilter(this)">Filtre langue</div>
+              <div onclick="showFilter(this)" class="prevent-select">Filtre langue</div>
               <div class="titi" id="filters" style="display: none;">
                 <label for="langue" class="langueBox">
-                  <input id="langueAll" type="checkbox" value="Allemand" checked>Allemand
-                  <input id="langueAngl" type="checkbox" value="Anglais" checked>Anglais
-                  <input id="langueEsp" type="checkbox" value="Espagnol" checked>Espagnol
-                  <input id="langueFr" type="checkbox" value="Français" checked>Français
-                  <input id="langueIt" type="checkbox" value="Italien" checked>Italien
-                  <input id="langueRus" type="checkbox" value="Russe" checked>Russe
+                  <input id="langueFr" type="checkbox" value="français" checked onchange="checkLanguages(this)">Français
+                  <input id="langueAll" type="checkbox" value="allemand"  onchange="checkLanguages(this)">Allemand
+                  <input id="langueAngl" type="checkbox" value="anglais"  onchange="checkLanguages(this)">Anglais
+                  <input id="langueEsp" type="checkbox" value="espagnol"  onchange="checkLanguages(this)">Espagnol
+                  <input id="langueIt" type="checkbox" value="italien"  onchange="checkLanguages(this)">Italien
+                  <input id="langueRus" type="checkbox" value="russe"  onchange="checkLanguages(this)">Russe
                 </label>
               </div>
             </div>
