@@ -1,5 +1,6 @@
 var xhr = null
 
+//Test
 console.log("HEYYYYYYYYYYYYYyy")
 
 getXmlHttpResquestObject = function() {
@@ -75,7 +76,7 @@ function createHoraireChoice(jsonData) {
 }
 
 
-
+//Test données
 let test_data = {
     languages: null,
     branches: ["Allemand", "Allemand"],
