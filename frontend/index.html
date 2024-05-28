@@ -59,31 +59,34 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             <!--création des filtres avec menu déroulant-->
             <div class="random prevent-select">Recherche Avancée</div>
 
-            <div class="filter_teachers">              
-              <div onclick="showFilter(this)" class="prevent-select">Filtre Enseignant.e.x(.s)</div>
+            <div class="filter_teachers">             
+              <div class="info_box">Choisir des enseignant.e.x.s dont les cours seront pris en compte pour le calcul de similarité</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre Enseignant.e.x(.s)</div>
               <div id="filters" style="display: none;">
               <select name="intervenant" class="filtre_intervenant">
                 <option disabled selected value> --Enseignant.e.x.s-- </option>
               </select>
               <button onclick="ajoutInterv(this)">Ajouter</button> <br></br>
               <div id="intervSelec" class="affichageIntervSelec">
-              </div><br></br>
+              </div> <br>
             </div>
 
             <div class="filter_branches">
-              <div onclick="showFilter(this)" class="prevent-select">Filtre Branche(s)</div>
+              <div class="info_box">Choisir des branches additionnelles à prendre en compte pour le calcul de similiarité</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre Branche(s)</div>
               <div id="filters" style="display: none;">
                 <select name="branches" class="filtre_branche">
                   <option disabled selected value> --Branche(s)-- </option>
                 </select>
                 <button onclick="ajoutBranche(this)">Ajouter</button> <br></br>
                 <div id="brancheSelec" class="affichageBrancheSelec">
-                </div><br></br>
+                </div> <br>
               </div>
             </div>
 
             <div class="similiarity">
-              <div onclick="showFilter(this)" class="prevent-select">Mesure de Similarité</div>
+              <div class="info_box">(!!AVANCE!!) Choisir la méthode de clustering dans le calcul de similarité</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Mesure de Similarité</div>
               <div id="filters" style="display: none;">
                 <select name="sim_meas" onchange="changeSim(this)">
                   <option selected value="median"> Médianne </option>
@@ -91,14 +94,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
                   <option value="max"> Maximum </option>
                   <option value="mean"> Moyenne </option>
                 </select>
-                </div><br></br>
+                </div>
               </div>
             </div>
 
             <div class="random" class="prevent-select">Organisation du tri</div>
 
-            <div class="filter_credits" >
-              <div onclick="showFilter(this)" class="prevent-select">Filtre crédits</div>
+            <div class="filter_credits">
+              <div class="info_box">Choisir le nombre maximum et minimum de crédits des cours affichés</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre crédits</div>
               <div id="filters" style="display: none;">
                 <div class="titi">
                   <label for="min-value">Min(0-10):</label>
@@ -111,7 +115,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             </div>
 
             <div class="filter_horaire" >
-              <div onclick="showFilter(this)" class="prevent-select">Filtre horaire</div>
+              <div class="info_box">Choisir les horaires des cours affichés (choisir l'horaire de départ de chaque période souhaitée)</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre horaire</div>
               <div id="filters" style="display: none;">
                 <select name="horaire" class="filtre_horaire">
                   <option disabled selected value> --horaire-- </option>
@@ -123,7 +128,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             </div>
 
             <div class="filter_semestre">
-              <div onclick="showFilter(this)" class="prevent-select">Filtre semestre</div>
+              <div class="info_box">Choisir le semestre des cours affichés</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre semestre</div>
               <div class ="titi" id="filters" style="display: none;">
                 <label for="semestre" class="semBox">
                   <input id="semPrint" type="checkbox" value="Printemps" checked onclick="checkSemester()">Printemps
@@ -133,6 +139,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             </div>
 
             <div>
+              <div class="info_box">Choisir la langue des cours affichés</div> 
               <div onclick="showFilter(this)" class="prevent-select">Filtre langue</div>
               <div class="titi" id="filters" style="display: none;">
                 <label for="langue" class="langueBox">

@@ -705,7 +705,8 @@ a {
   height: 100%;
   overflow: auto;
   background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4)
+  background-color: rgba(0, 0, 0, 0.4);
+  color: black;
 }
 
 .w3-modal-content {
@@ -4640,4 +4641,15 @@ a {
   border-bottom: #000 dashed;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.info_box {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  opacity: 95%;
 }

@@ -1,9 +1,8 @@
 
-let checkList = []
-  
+ 
   //montrer ou cacher les options de filtre
   function showFilter(div) {
-   let x = div.parentNode.querySelectorAll("div")[1];
+   let x = div.parentNode.querySelectorAll("div")[2];
    console.log(x)
    if (x.style.display === "none") {
      x.style.display = "block";
@@ -13,7 +12,6 @@ let checkList = []
  }
 
  //fonction d'ajout des éléments des filtres
-console.log(checkList)
  function ajoutInterv(button){
    let selection = button.parentNode.querySelector("select")
    if (test_data.intervenants.includes(selection.value)){
@@ -158,4 +156,18 @@ function delet(div, list) {
       list.splice(index, 1);
   }
   div.remove();
+}
+
+function showInfoBox(element){
+  console.log("here")
+  let infoBox = element.parentNode.getElementsByClassName("info_box")[0]
+  infoBox.style.display = 'block';
+  console.log(element.style)
+  infoBox.style.left = `${element.offsetLeft + 15}px`;
+  infoBox.style.top = `${element.offsetTop - 50}px`;
+}
+
+function hideInfoBox(element) {
+  const infoBox = element.parentNode.getElementsByClassName("info_box")[0]
+  infoBox.style.display = 'none';
 }
