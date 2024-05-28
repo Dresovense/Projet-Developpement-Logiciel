@@ -146,6 +146,10 @@ function checkLanguages(inputLang){
   console.log(filtred_data.languages)
 }
 
+function changeSim(sim_div){
+  test_data.similarity_type = sim_div.value
+  console.log(test_data)
+}
 
 //fonction qui supprime les éléments ajoutés
 function delet(div, list) {

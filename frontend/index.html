@@ -82,6 +82,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
               </div>
             </div>
 
+            <div class="similiarity">
+              <div onclick="showFilter(this)" class="prevent-select">Mesure de Similarité</div>
+              <div id="filters" style="display: none;">
+                <select name="sim_meas" onchange="changeSim(this)">
+                  <option selected value="median"> Médianne </option>
+                  <option value="min"> Minimum </option>
+                  <option value="max"> Maximum </option>
+                  <option value="mean"> Moyenne </option>
+                </select>
+                </div><br></br>
+              </div>
+            </div>
+
             <div class="random" class="prevent-select">Organisation du tri</div>
 
             <div class="filter_credits" >
