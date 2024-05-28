@@ -14,6 +14,8 @@ function openMenu(evt, menuName) {
   }
   document.getElementById("myLink").click();
 
+  //console.log(semAut.checked)
+
   
   //montrer ou cacher les options de filtre
   function showFilter(div) {

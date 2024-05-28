@@ -1,7 +1,19 @@
 var xhr = null
 
-//Test
-console.log("HEYYYYYYYYYYYYYyy")
+//Test données
+let test_data = {
+    branches: ["Allemand","Allemand"],
+    intervenants: null,
+    similarity_type: "median"
+}
+
+let filtred_data = {
+    languages: null,
+    credits: null,
+    semester: ["Printemps","Automne","Annuel"],
+    horaire: null,
+    progOption: true,
+}
 
 getXmlHttpResquestObject = function() {
     if(!xhr){
@@ -76,16 +88,7 @@ function createHoraireChoice(jsonData) {
 }
 
 
-//Test données
-let test_data = {
-    languages: null,
-    branches: ["Allemand", "Allemand"],
-    credits: null,
-    intervenants: null,
-    semester: null,
-    horaires: null,
-    similarity_type: "min"
-}
+
 
 //Récupère la valeur de la 1ère branche selectionnée
 function changeSelectedBranche1(branche1_selected) {
