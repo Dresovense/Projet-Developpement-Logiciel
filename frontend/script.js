@@ -1,21 +1,5 @@
-// Tabbed Menu
-function openMenu(evt, menuName) {
-    var i, x, tablinks;
-    x = document.getElementsByClassName("menu");
-    for (i = 0; i < x.length; i++) {
-       x[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < x.length; i++) {
-       tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
-    }
-    document.getElementById(menuName).style.display = "block";
-    evt.currentTarget.firstElementChild.className += " w3-red";
-  }
-  document.getElementById("myLink").click();
 
-  //console.log(semAut.checked)
-
+let checkList = []
   
   //montrer ou cacher les options de filtre
   function showFilter(div) {
@@ -29,7 +13,7 @@ function openMenu(evt, menuName) {
  }
 
  //fonction d'ajout des éléments des filtres
- let checkList = []
+console.log(checkList)
  function ajoutInterv(button){
    let selection = button.parentNode.querySelector("select")
    if (checkList.includes(selection.value)){

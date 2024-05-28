@@ -69,7 +69,6 @@ def similarity():
         flask.Response: JSON response containing similarity results.
     """
     received_data = request.get_json()
-    print(f"received data: {received_data['languages']}")
 
     # Setup search:
     search_obj = Search()

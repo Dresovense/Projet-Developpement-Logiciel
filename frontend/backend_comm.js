@@ -2,10 +2,12 @@ var xhr = null
 
 //Test données
 let test_data = {
-    branches: ["Allemand","Allemand"],
+    branches: [null,null],
     intervenants: null,
     similarity_type: "median"
 }
+
+let last_test_data = {}
 
 let filtred_data = {
     languages: null,
@@ -48,11 +50,17 @@ function createBrancheChoice(jsonData) {
     cours_list = jsonData.cours;
     selectList = document.body.getElementsByClassName("filtre_branche");
     for(let j = 0; j< selectList.length; j++){
+        let base_option = document.createElement("option")
+        base_option.text = "-----------------"
+        base_option.id = "unselected"
+        selectList[j].add(base_option)
         for (let i = 0; i< cours_list.length; i++){
-            var option = document.createElement("option");
-            option.text = cours_list[i][0];
-            option.id = cours_list[i][1];
-            selectList[j].add(option);
+            if(cours_list[i][0] != "Autres"){
+                var option = document.createElement("option");
+                option.text = cours_list[i][0];
+                option.id = cours_list[i][1];
+                selectList[j].add(option);
+            }
         }
     }
 }
@@ -88,29 +96,50 @@ function createHoraireChoice(jsonData) {
 }
 
 
-
-
 //Récupère la valeur de la 1ère branche selectionnée
 function changeSelectedBranche1(branche1_selected) {
-    test_data.branches[0] = branche1_selected;
-    console.log(test_data.branches[0])
+    if(branche1_selected.id != "unselected"){
+        test_data.branches[0] = branche1_selected;
+        console.log(test_data.branches[0])
+    }
+    else{
+        test_data[0] = null
+    }
 }
 
 //Récupère la valeur de la 2ème branche selectionnée
 function changeSelectedBranche2(branche2_selected) {
-    test_data.branches[1] = branche2_selected;
-    console.log(test_data.branches[1])
+    if(branche2_selected.id != "unselected"){
+        test_data.branches[1] = branche2_selected;
+        console.log(test_data.branches[1])
+    }
+    else{
+        test_data[1] = null
+    }
 }
 
 function getSimilarity(){
-    desactivButtonSearch();
-    console.log("Getting similarity ...");
-    xhr = getXmlHttpResquestObject();
-    xhr.onreadystatechange = similarityCallback;
-    xhr.open("POST", "http://localhost:6969/similarity", true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    // Send the request over the network
-    xhr.send(JSON.stringify(test_data));
+    if(JSON.stringify(test_data.branches) == JSON.stringify([null,null]) && test_data.intervenants == null){
+        alert("Tu n'as pas sélectionné d'intervenants ou de branches!")
+    }
+    else{
+        if(JSON.stringify(last_test_data) == JSON.stringify(test_data)){
+            createCourses_Buttons(similarity_data, 10)
+        }
+        else{
+            desactivButtonSearch();
+            console.log("Getting similarity ...");
+            xhr = getXmlHttpResquestObject();
+            xhr.onreadystatechange = similarityCallback;
+            xhr.open("POST", "http://localhost:6969/similarity", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            // Send the request over the network
+            xhr.send(JSON.stringify(test_data));
+        }
+        console.log("here")
+        last_test_data = JSON.parse(JSON.stringify(test_data))
+    }
+
 }
 
 function similarityCallback() {
@@ -120,10 +149,14 @@ function similarityCallback() {
         similarity_data = JSON.parse(xhr.responseText);
         console.log(similarity_data)
         similarity_data = similarity_data.sort(function(a, b) {return b.similarity - a.similarity})
-        createPageButtons(similarity_data.length, maxDiv)
-        createCourseDiv(similarity_data, maxDiv, 0)
+        createCourses_Buttons(similarity_data, maxDiv)
         activButtonSearch()
     }
+}
+
+function createCourses_Buttons(similarity_data, maxDiv){
+    createPageButtons(similarity_data.length, maxDiv)
+    createCourseDiv(similarity_data, maxDiv, 0)
 }
 
 
@@ -201,9 +234,13 @@ function updateButtonPage(pageNumber) {
 
 //afficher les cours
 function createCourseDiv(coursesData, maxDivPerPage, firstDiv) { 
+    //APPELLER FONCTIONS DE FILTRES!!!
+
     let divCourse = document.getElementById("Pizza")
+    divCourse.style.display = "block"
     divCourse.innerHTML = ""
     for (let i = firstDiv; i < maxDivPerPage+firstDiv; i++) {
+        console.log("test")
       const maDiv = document.createElement("div");
 
       const title = document.createElement("h1");
