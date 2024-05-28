@@ -111,8 +111,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 
             <div class="filter_semestre">
               <div onclick="showFilter(this)">Filtre semestre</div>
-              <div id="filters" style="display: none;">
-                <label for="semestre">
+              <div class ="titi" id="filters" style="display: none;">
+                <label for="semestre" class="semBox">
                   <input id="semPrint" type="checkbox" value="Printemps" checked>Printemps
                   <input id="semAut" type="checkbox" value="Automne" checked>Automne
                 </label>
@@ -121,8 +121,15 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 
             <div>
               <div onclick="showFilter(this)">Filtre langue</div>
-              <div>
-                
+              <div class="titi" id="filters" style="display: none;">
+                <label for="langue" class="langueBox">
+                  <input id="langueAll" type="checkbox" value="Allemand" checked>Allemand
+                  <input id="langueAngl" type="checkbox" value="Anglais" checked>Anglais
+                  <input id="langueEsp" type="checkbox" value="Espagnol" checked>Espagnol
+                  <input id="langueFr" type="checkbox" value="Français" checked>Français
+                  <input id="langueIt" type="checkbox" value="Italien" checked>Italien
+                  <input id="langueRus" type="checkbox" value="Russe" checked>Russe
+                </label>
               </div>
             </div>
 

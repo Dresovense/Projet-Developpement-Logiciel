@@ -59,7 +59,7 @@ function ajoutHoraire(button){
   }
   else{
    let horaireEle = document.createElement("div")
-   horaireEle.className = "brancheEle"
+   horaireEle.className = "horaireEle"
    horaireEle.addEventListener("click", function(){
      delet(horaireEle)
    })

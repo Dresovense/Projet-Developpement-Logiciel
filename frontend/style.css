@@ -79,6 +79,40 @@ h6 {
   gap: 10px; 
 }
 
+.horaireEle{
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: gray solid 2px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.horaireEle:hover{
+  opacity: 60%;
+}
+
+.affichageHoraireSelec{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+  gap: 10px; 
+}
+
+.semBox{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px; 
+  padding: 5px;
+  font-size: 30px;
+}
+
+.langueBox{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); 
+  gap: 10px; 
+  padding: 5px;
+  font-size: 20px;
+}
+
 .filter_teachers {
   color: black;
 }
