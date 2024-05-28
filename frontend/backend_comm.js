@@ -10,9 +10,9 @@ let test_data = {
 let last_test_data = {}
 
 let filtred_data = {
-    languages: null,
-    credits: null,
-    semester: ["Printemps","Automne","Annuel"],
+    languages: ["français"],
+    credits: [2, 5],
+    semester: ["printemps","automne","Annuel"],
     horaire: null,
     progOption: true,
 }
@@ -83,6 +83,7 @@ function createIntervenantChoice(jsonData) {
 //création des options pour le filtre horaire
 function createHoraireChoice(jsonData) {
     horaireListe = jsonData.horaires;
+    filtred_data.horaire = jsonData.horaires.map(x => x[0])
     horaireFiltre = document.getElementsByClassName("filtre_horaire");
     console.log(horaireFiltre);
     for(let j = 0; j< horaireFiltre.length; j++){
@@ -235,6 +236,15 @@ function updateButtonPage(pageNumber) {
 //afficher les cours
 function createCourseDiv(coursesData, maxDivPerPage, firstDiv) { 
     //APPELLER FONCTIONS DE FILTRES!!!
+    console.log(coursesData)
+    let coursesDataFiltered = filtre_credit(coursesData, filtred_data.credits)
+    console.log(coursesDataFiltered)
+    coursesDataFiltered = filtre_horaire(coursesDataFiltered, filtred_data.horaire)
+    console.log(coursesDataFiltered)
+    coursesDataFiltered = filtre_semestre(coursesDataFiltered, filtred_data.semester)
+    console.log(coursesDataFiltered)
+    coursesDataFiltered = filtre_langue(coursesDataFiltered, filtred_data.languages)
+    console.log(coursesDataFiltered)
 
     let divCourse = document.getElementById("Pizza")
     divCourse.style.display = "block"
@@ -244,18 +254,18 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
       const maDiv = document.createElement("div");
 
       const title = document.createElement("h1");
-      title.innerText = `${coursesData[i].nom}`;
+      title.innerText = `${coursesDataFiltered[i].nom}`;
 
       const information = document.createElement("h4");
       information.className = "affichage";
       const teacher = document.createElement("p");
-      teacher.innerText = `Intervenant: ${coursesData[i].intervenants}`;
+      teacher.innerText = `Intervenant: ${coursesDataFiltered[i].intervenants}`;
       information.appendChild(teacher);
 
       const schedule = document.createElement("p");
       schedule.innerHTML = "Horaire: <br>"
-      for (let r = 1; r < coursesData[i].horaires.length;r++) {
-        var startCourse = coursesData[i].horaires[r]-1;
+      for (let r = 1; r < coursesDataFiltered[i].horaires.length;r++) {
+        var startCourse = coursesDataFiltered[i].horaires[r]-1;
         schedule.innerHTML += jsonData.horaires[startCourse][1];
         schedule.innerHTML += " ";
         schedule.innerHTML += jsonData.horaires[startCourse][2];
@@ -265,16 +275,16 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
       information.appendChild(schedule);
 
       const credits = document.createElement("p");
-      credits.innerText = `Crédits: ${coursesData[i].credits}`;
+      credits.innerText = `Crédits: ${coursesDataFiltered[i].credits}`;
       information.appendChild(credits);
 
       const similarity = document.createElement("p");
-      similarity.innerText = `Similarité: ${Math.round(((coursesData[i].similarity*100) + Number.EPSILON) * 100) / 100}%`;
+      similarity.innerText = `Similarité: ${Math.round(((coursesDataFiltered[i].similarity*100) + Number.EPSILON) * 100) / 100}%`;
       information.appendChild(similarity);
 
       const urlCourse = document.createElement("a");
       urlCourse.innerText = `Voir plus`;
-      urlCourse.href = `${coursesData[i].url}`;
+      urlCourse.href = `${coursesDataFiltered[i].url}`;
       urlCourse.target = `_blank`;
       urlCourse.rel = `noopener noreferrer`;
       information.appendChild(urlCourse);
@@ -283,6 +293,22 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
       maDiv.appendChild(information);
       divCourse.appendChild(maDiv);
     }
+}
+
+function filtre_credit(coursesData, filter_list){
+    return coursesData.filter(x => filter_list[0]<=x.credits && x.credits<=filter_list[1])
+}
+    
+function filtre_horaire(coursesData, filter_list){
+    return coursesData.filter(x => x.horaires.every(horaire => filter_list.includes(horaire)))
+}
+    
+function filtre_semestre(coursesData, filter_list){
+    return coursesData.filter(x => filter_list.includes(x.semestre))
+}
+    
+function filtre_langue(coursesData, filter_list){
+    return coursesData.filter(x => filter_list.includes(x.langage))
 }
 
 //Remplacement texte de recherche + désactivation bouton pendant chargement
