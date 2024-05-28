@@ -252,6 +252,7 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
     for (let i = firstDiv; i < maxDivPerPage+firstDiv; i++) {
         console.log("test")
       const maDiv = document.createElement("div");
+        maDiv.className = "courseDiv"
 
       const title = document.createElement("h1");
       title.innerText = `${coursesDataFiltered[i].nom}`;
@@ -259,12 +260,15 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
       const information = document.createElement("h4");
       information.className = "affichage";
       const teacher = document.createElement("p");
-      teacher.innerText = `Intervenant: ${coursesDataFiltered[i].intervenants}`;
+      teacher.innerHTML = "Intervenant(s): <br>"
+      for(let j = 0; j < coursesDataFiltered[i].intervenants.length; j++){
+        teacher.innerHTML += `${coursesDataFiltered[i].intervenants[j]}<br>`
+      }
       information.appendChild(teacher);
 
       const schedule = document.createElement("p");
       schedule.innerHTML = "Horaire: <br>"
-      for (let r = 1; r < coursesDataFiltered[i].horaires.length;r++) {
+      for (let r = 0; r < coursesDataFiltered[i].horaires.length;r++) {
         var startCourse = coursesDataFiltered[i].horaires[r]-1;
         schedule.innerHTML += jsonData.horaires[startCourse][1];
         schedule.innerHTML += " ";
@@ -292,6 +296,7 @@ function createCourseDiv(coursesData, maxDivPerPage, firstDiv) {
       maDiv.appendChild(title);
       maDiv.appendChild(information);
       divCourse.appendChild(maDiv);
+      
     }
 }
 

@@ -1574,7 +1574,6 @@ a {
 
 .w3-padding-32 {
   padding-top: 32px !important;
-  padding-bottom: 32px !important
 }
 
 .w3-padding-48 {
@@ -4601,4 +4600,10 @@ a {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+}
+
+.courseDiv {
+  border-bottom: #000 dashed;
+  padding-left: 16px;
+  padding-right: 16px;
 }
