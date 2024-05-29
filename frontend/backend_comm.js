@@ -191,7 +191,7 @@ function changeSelectedBranche2(branche2_selected) {
 // Function to calculate similarity
 function getSimilarity() {
     // Check if no branches or intervenants are selected
-    if (JSON.stringify(test_data.branches) == JSON.stringify([null, null]) && test_data.intervenants == null) {
+    if (JSON.stringify(test_data.branches) == JSON.stringify([null, null]) && JSON.stringify(test_data.intervenants) == JSON.stringify([])) {
         alert("Tu n'as pas sélectionné d'intervenants ou de branches!");
     } else {
         // Check if the current test data is the same as the last test data
