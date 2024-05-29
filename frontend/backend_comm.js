@@ -122,7 +122,7 @@ function changeSelectedBranche2(branche2_selected) {
 }
 
 function getSimilarity(){
-    if(JSON.stringify(test_data.branches) == JSON.stringify([null,null]) && test_data.intervenants == null){
+    if(JSON.stringify(test_data.branches) == JSON.stringify([null,null]) && (test_data.intervenants == null || JSON.stringify(test_data.intervenants) == JSON.stringify([]))){
         alert("Tu n'as pas sélectionné d'intervenants ou de branches!")
     }
     else{
