@@ -6,3 +6,4 @@
 *.xlsx
 *.csv
 backend/test.py
+/node_modules
