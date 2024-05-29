@@ -4,6 +4,7 @@ import gensim
 from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 from nltk.tokenize import word_tokenize
 import json
+import sqlite3
 
 search_obj = Search()
  
@@ -17,9 +18,21 @@ cours2 = GroupCours(cours2)
 print("this is cours2.similarity")
 cours2.similarity(cours1, cluster_type="median")
 
+<<<<<<< HEAD
 
 
 """with open("backend\json.json") as f:
     test = json.load(f)
 print(test["intervenants"])"""
+=======
+#with open("backend\json.json") as f:
+#    test = json.load(f)
+#print(test["intervenants"])
+>>>>>>> main
 
+def get_db_connection():
+    conn = sqlite3.connect('database/database.db')
+    return conn
+conn = get_db_connection()
+horaires = conn.execute('SELECT id, horaire, jour FROM horaire').fetchall()
+print(horaires)

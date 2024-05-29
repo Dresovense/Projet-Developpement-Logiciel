@@ -53,6 +53,7 @@ function startDataCallback() {
         // Parse the JSON response from the server
         jsonData = JSON.parse(xhr.responseText);
         
+<<<<<<< HEAD
         // Call functions to create various UI elements with the received data
         createBrancheChoice(jsonData); // Function to create branch choices
         createIntervenantChoice(jsonData); // Function to create intervenant (participant) choices
@@ -93,10 +94,28 @@ function createBrancheChoice(jsonData) {
                 // Add the new option to the current select element
                 selectList[j].add(option);
             }
+=======
+        createBrancheChoice(jsonData)
+        createIntervenantChoice(jsonData)
+    }
+}
+
+//création des options pour le choix des branches
+function createBrancheChoice(jsonData) {
+    cours_list = jsonData.cours;
+    selectList = document.body.getElementsByClassName("filtre_branche");
+    for(let j = 0; j< selectList.length; j++){
+        for (let i = 0; i< cours_list.length; i++){
+            var option = document.createElement("option");
+            option.text = cours_list[i][0];
+            option.id = cours_list[i][1];
+            selectList[j].add(option);
+>>>>>>> main
         }
     }
 }
 
+<<<<<<< HEAD
 
 function createIntervenantChoice(jsonData) {
     // Extract the list of intervenants (participants) from the JSON data
@@ -119,10 +138,36 @@ function createIntervenantChoice(jsonData) {
 
             // Add the new option to the current select element
             intervFiltre[j].add(option);
+=======
+//création des options pour le choix des intervenants
+function createIntervenantChoice(jsonData) {
+    intervenant_list = jsonData.intervenants;
+        intervFiltre = document.body.getElementsByClassName("filtre_intervenant");
+        console.log(intervFiltre);
+        for(let j = 0; j< intervFiltre.length; j++){
+            for (let i = 0; i< intervenant_list.length; i++){
+                var option = document.createElement("option");
+                option.text = intervenant_list[i][0];
+                option.id = intervenant_list[i][1];
+                intervFiltre[j].add(option);
+            }
+>>>>>>> main
         }
-    }
 }
 
+<<<<<<< HEAD
+=======
+
+let test_data = {
+    language: ["français"],
+    branches: ["Informatique pour les sciences humaines", "Linguistique"],
+    credits: null,
+    intervenants: null,
+    semester: null,
+    horaires: null,
+    similarity_type: "min"
+}
+>>>>>>> main
 
 function createHoraireChoice(jsonData) {
     // Extract the horaires array from the jsonData object

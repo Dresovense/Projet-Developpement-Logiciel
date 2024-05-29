@@ -1,6 +1,10 @@
 {
     "scripts": {
+<<<<<<< HEAD
         "start": "http-server ./frontend -c-1"
+=======
+        "start": "http-server . -c-1"
+>>>>>>> main
     },
     "dependencies": {
         "http-server": "^14.1.1"
