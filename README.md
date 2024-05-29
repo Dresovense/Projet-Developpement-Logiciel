@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+# Nestor
+=======
 # NOM DU PROJET
+>>>>>>> main
 
 ## Table of contents
 
@@ -20,11 +24,19 @@ Python :
 - scipy 1.10.1 (!make sure to install this version!)
 - nltk 3.8.1
 - scikit-learn 1.4.2
+<<<<<<< HEAD
+- openpyxl 3.1.2
+=======
+>>>>>>> main
 NPM :
 - http-server
 
 ## Quick start
+<<<<<<< HEAD
+Download the project and install the listed packages above (pay attention to the version installed, espcially concerning scipy). Run the app.py file. Then in an other console, run the command : npm start. Click on the link of the http-server.
+=======
 Download the project and install the listed packages above. Run the app.py file. Then in an other console, run the command : npm start. Click on the link of the http-server.
+>>>>>>> main
 
 ## Credits
 This project was created by André da Glória Santiago, Marie Fasel, Sébastien Franzone and Vincent Joris under the supervision of Davide Picca.

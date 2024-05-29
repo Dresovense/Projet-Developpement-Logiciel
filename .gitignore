@@ -1,4 +1,10 @@
 .venv
 .env
-backend\test.py
+/backend/test.py
 /backend/__pycache__
+/A_SUPPRIMER_interface_react
+*.xlsx
+*.csv
+backend/test.py
+/node_modules
+my_excel_results.xlsx

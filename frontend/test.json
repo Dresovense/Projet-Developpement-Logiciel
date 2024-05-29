@@ -2,6 +2,8 @@
     "course_name": "Test name",
     "similarity": "9.5",
     "teacher": "Test enseignant",
-    "description": "Lien vers la description",
-    "credit": "3"
+    "description": "URL",
+    "credit": "3",
+    "schedule":"10:00"
 }
+

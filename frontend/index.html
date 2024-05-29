@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Find your optional class</title>
+<title>NESTOR</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="style.css">
@@ -20,42 +20,21 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
 </head>
 <body>
 
-<!-- Navbar (sit on top) -->
-<!-- <div class="w3-top w3-hide-small">
-  <div class="w3-bar w3-xlarge w3-black w3-opacity w3-hover-opacity-off" id="myNavbar">
-    <a href="#" class="w3-bar-item w3-button">HOME</a>
-    <a href="#menu" class="w3-bar-item w3-button">MENU</a>
-    <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
-    <a href="#myMap" class="w3-bar-item w3-button">CONTACT</a>
-  </div>
-</div> -->
-  
-<!-- Header with image -->
-<!-- <header class="bgimg w3-display-container w3-grayscale-min" id="home">
-  <div class="w3-display-bottomleft w3-padding">
-    <span class="w3-tag w3-xlarge">Open from 10am to 12pm</span>
-  </div>
-  <div class="w3-display-middle w3-center">
-    <span class="w3-text-white w3-hide-small" style="font-size:100px">thin<br>CRUST PIZZA</span>
-    <span class="w3-text-white w3-hide-large w3-hide-medium" style="font-size:60px"><b>thin<br>CRUST PIZZA</b></span>
-    <p><a href="#menu" class="w3-button w3-xxlarge w3-black">Let me see the menu</a></p>
-  </div>
-</header> -->
-
 <!-- Menu Container -->
 <div class="w3-container w3-black w3-padding-64 w3-xxlarge" id="menu">
   <div class="w3-content">
   
-    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Trouve ton cours à option idéal !</h1>
+    <h1 class="w3-center w3-jumbo prevent-select" style="margin-bottom:12px">NESTOR</h1>
+    <h2 class="w3-center prevent-select" style="margin-bottom:64px" >Trouve ton cours à option idéal !</h2>
     <div class="w3-row w3-border w3-border-dark-grey">
       <div>
         Branche 1
-        <select name="branche1" id="branche1" class = "filtre_branche">
+        <select name="branche1" id="branche1" class = "filtre_branche" onchange="changeSelectedBranche1(this.value)">
         </select>
       </div>
       <div>
         Branche 2
-        <select name="branche2" id="branche2" class = "filtre_branche">
+        <select name="branche2" id="branche2" class = "filtre_branche" onchange="changeSelectedBranche2(this.value)">
         </select>
       </div>
       <a class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="document.getElementById('id01').style.display='block'" style="font-weight:900;">
@@ -63,42 +42,115 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             Filtres
         </div>
       </a>
+      <button id="searchButton" class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" onclick="getSimilarity()">
+        Rechercher
+      </button>
+      <a class="w3-btn w3-xlarge w3-dark-grey w3-hover-light-grey" style="font-weight:900;" href="../my_excel_results.xlsx/">
+        Télécharger
+      </a>
         <div id="id01" class="w3-modal">
           <div class="w3-modal-content w3-card-4 w3-animate-top">
             <header class="w3-container w3-theme-l1"> 
               <span onclick="document.getElementById('id01').style.display='none'"
               class="w3-button w3-display-topright">×</span>
-              <h1>Filtres</h1>
+              <h1 class="prevent-select">Filtres</h1>
             </header>
 
             <!--création des filtres avec menu déroulant-->
-            <div class="filter_teachers">              
-              <div onclick="showFilter(this)">Filtre Enseignant.e.x(.s)</div>
+            <div class="random prevent-select">Recherche Avancée</div>
+
+            <div class="filter_teachers">             
+              <div class="info_box">Choisir des enseignant.e.x.s dont les cours seront pris en compte pour le calcul de similarité</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre Enseignant.e.x(.s)</div>
               <div id="filters" style="display: none;">
               <select name="intervenant" class="filtre_intervenant">
                 <option disabled selected value> --Enseignant.e.x.s-- </option>
               </select>
-              <button onclick="ajout(this)">Ajouter</button> <br></br>
-              <div id="intervSelec">
-              </div>
+              <button onclick="ajoutInterv(this)">Ajouter</button> <br></br>
+              <div id="intervSelec" class="affichageIntervSelec">
+              </div> <br>
             </div>
 
             <div class="filter_branches">
-              <div onclick="showFilter(this)">Filtre Branche(s)</div>
+              <div class="info_box">Choisir des branches additionnelles à prendre en compte pour le calcul de similiarité</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre Branche(s)</div>
               <div id="filters" style="display: none;">
                 <select name="branches" class="filtre_branche">
-                  <option disabled selected value> --Branches-- </option>
+                  <option disabled selected value> --Branche(s)-- </option>
                 </select>
-                </div>
+                <button onclick="ajoutBranche(this)">Ajouter</button> <br></br>
+                <div id="brancheSelec" class="affichageBrancheSelec">
+                </div> <br>
+              </div>
             </div>
 
-            <div class="filter_credits" >
-              <div onclick="showFilter(this)">Filtre crédits</div>
+            <div class="similiarity">
+              <div class="info_box">(!!AVANCE!!) Choisir la méthode de clustering dans le calcul de similarité</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Mesure de Similarité</div>
               <div id="filters" style="display: none;">
-                <select name="credits" class="filtre_credits">
-                  <option disabled selected value> --crédit(s)-- </option>
+                <select name="sim_meas" onchange="changeSim(this)">
+                  <option selected value="median"> Médianne </option>
+                  <option value="min"> Minimum </option>
+                  <option value="max"> Maximum </option>
+                  <option value="mean"> Moyenne </option>
                 </select>
                 </div>
+              </div>
+            </div>
+
+            <div class="random" class="prevent-select">Organisation du tri</div>
+
+            <div class="filter_credits">
+              <div class="info_box">Choisir le nombre maximum et minimum de crédits des cours affichés</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre crédits</div>
+              <div id="filters" style="display: none;">
+                <div class="titi">
+                  <label for="min-value">Min(0-10):</label>
+                  <input type="number" id="min-value" name="min-value" min="0" max="10" value="0" required style="width: 110px;" oninput="changeValueMin(this)">
+                  
+                  <label for="max-value">Max(0-10):</label>
+                  <input type="number" id="max-value" name="max-value" min="0" max="10" value="10" style="width: 110px;" oninput="changeValueMax(this)">
+                </div>
+              </div>
+            </div>
+
+            <div class="filter_horaire" >
+              <div class="info_box">Choisir les horaires des cours affichés (choisir l'horaire de départ de chaque période souhaitée)</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre horaire</div>
+              <div id="filters" style="display: none;">
+                <select name="horaire" class="filtre_horaire">
+                  <option disabled selected value> --horaire-- </option>
+                </select>
+                <button onclick="ajoutHoraire(this)">Ajouter</button> <br></br>
+                <div id="horaireSelec" class="affichageHoraireSelec">
+                </div><br></br>
+              </div>
+            </div>
+
+            <div class="filter_semestre">
+              <div class="info_box">Choisir le semestre des cours affichés</div> 
+              <div onclick="showFilter(this)" class="prevent-select" onmouseover="showInfoBox(this)" onmouseout="hideInfoBox(this)">Filtre semestre</div>
+              <div class ="titi" id="filters" style="display: none;">
+                <label for="semestre" class="semBox">
+                  <input id="semPrint" type="checkbox" value="Printemps" checked onclick="checkSemester()">Printemps
+                  <input id="semAut" type="checkbox" value="Automne" checked onclick="checkSemester()">Automne
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <div class="info_box">Choisir la langue des cours affichés</div> 
+              <div onclick="showFilter(this)" class="prevent-select">Filtre langue</div>
+              <div class="titi" id="filters" style="display: none;">
+                <label for="langue" class="langueBox">
+                  <input id="langueFr" type="checkbox" value="français" checked onchange="checkLanguages(this)">Français
+                  <input id="langueAll" type="checkbox" value="allemand"  onchange="checkLanguages(this)">Allemand
+                  <input id="langueAngl" type="checkbox" value="anglais"  onchange="checkLanguages(this)">Anglais
+                  <input id="langueEsp" type="checkbox" value="espagnol"  onchange="checkLanguages(this)">Espagnol
+                  <input id="langueIt" type="checkbox" value="italien"  onchange="checkLanguages(this)">Italien
+                  <input id="langueRus" type="checkbox" value="russe"  onchange="checkLanguages(this)">Russe
+                </label>
+              </div>
             </div>
 
             <footer class="w3-container w3-theme-l1">
@@ -107,133 +159,19 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Amatic SC", sans-serif}
             </footer>
           </div>
       </div>
-        <!-- <div id="filtres">
-            Voilà des super filtres
-        </div> -->
-      <a href="javascript:void(0)" onclick="openMenu(event, 'Pizza');" id="myLink">
-        <div class="w3-col w3-center s4 tablink w3-padding-large w3-hover-red">Cours</div>
-      </a>
-      <!-- <a href="javascript:void(0)" onclick="openMenu(event, 'Pasta');">
-        <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Salads</div>
-      </a>
-      <a href="javascript:void(0)" onclick="openMenu(event, 'Starter');">
-        <div class="w3-col s4 tablink w3-padding-large w3-hover-red">Starter</div>
-      </a> -->
     </div>
 
-    <div id="Pizza" class="w3-container menu w3-padding-32 w3-white">
-      <div onclick="create_space_course()">
-          Oh yeah click me !
-      </div>
-      <!-- <h1><b>Méthode Quantitative I</b> <span class="w3-right w3-tag w3-dark-grey w3-round">9.9</span></h1>
-      <p class="w3-text-grey">Description du cours</p>
-      <hr>
-   
-      <h1><b>Méthode Quantitative II</b> <span class="w3-right w3-tag w3-dark-grey w3-round">9.8</span></h1>
-      <p class="w3-text-grey">Description du cours</p>
-      <hr>
-      
-      <h1><b>Méthode Quantitative III</b> <span class="w3-right w3-tag w3-dark-grey w3-round">9.6</span></h1>
-      <p class="w3-text-grey">Description du cours</p>
-      <hr>
-
-      <h1><b>Méthode Quantitative IV</b> <span class="w3-right w3-tag w3-dark-grey w3-round">9.6</span></h1>
-      <p class="w3-text-grey">Description du cours</p>
-      <hr>
-
-      <h1><b>Plateformes et Interfaces</b><span class="w3-right w3-tag w3-dark-grey w3-round">8.6</span></h1>
-      <p class="w3-text-grey">Description du cours</p>
-      <hr> -->
+    <div id="Pizza" class="menu w3-padding-32 w3-white">
     </div>
-
-    <!-- <div id="Pasta" class="w3-container menu w3-padding-32 w3-white">
-      <h1><b>Lasagna</b> <span class="w3-tag w3-grey w3-round">Popular</span> <span class="w3-right w3-tag w3-dark-grey w3-round">$13.50</span></h1>
-      <p class="w3-text-grey">Special sauce, mozzarella, parmesan, ground beef</p>
-      <hr>
-   
-      <h1><b>Ravioli</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$14.50</span></h1>
-      <p class="w3-text-grey">Ravioli filled with cheese</p>
-      <hr>
-      
-      <h1><b>Spaghetti Classica</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$11.00</span></h1>
-      <p class="w3-text-grey">Fresh tomatoes, onions, ground beef</p>
-      <hr>
-
-      <h1><b>Seafood pasta</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$25.50</span></h1>
-      <p class="w3-text-grey">Salmon, shrimp, lobster, garlic</p>
-    </div> -->
-
-
-    <!-- <div id="Starter" class="w3-container menu w3-padding-32 w3-white">
-      <h1><b>Today's Soup</b> <span class="w3-tag w3-grey w3-round">Seasonal</span><span class="w3-right w3-tag w3-dark-grey w3-round">$5.50</span></h1>
-      <p class="w3-text-grey">Ask the waiter</p>
-      <hr>
-   
-      <h1><b>Bruschetta</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$8.50</span></h1>
-      <p class="w3-text-grey">Bread with pesto, tomatoes, onion, garlic</p>
-      <hr>
-      
-      <h1><b>Garlic bread</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$9.50</span></h1>
-      <p class="w3-text-grey">Grilled ciabatta, garlic butter, onions</p>
-      <hr>
-      
-      <h1><b>Tomozzarella</b> <span class="w3-right w3-tag w3-dark-grey w3-round">$10.50</span></h1>
-      <p class="w3-text-grey">Tomatoes and mozzarella</p>
-    </div> --><!-- <br> -->
-
   </div>
 </div>
-
-<!-- About Container -->
-<!-- <div class="w3-container w3-padding-64 w3-red w3-grayscale w3-xlarge" id="about">
-  <div class="w3-content">
-    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">About</h1>
-    <p>The Pizza Restaurant was founded in blabla by Mr. Italiano in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    <p><strong>The Chef?</strong> Mr. Italiano himself<img src="/w3images/chef.jpg" style="width:150px" class="w3-circle w3-right" alt="Chef"></p>
-    <p>We are proud of our interiors.</p>
-    <img src="/w3images/onepage_restaurant.jpg" style="width:100%" class="w3-margin-top w3-margin-bottom" alt="Restaurant">
-    <h1><b>Opening Hours</b></h1>
-    
-    <div class="w3-row">
-      <div class="w3-col s6">
-        <p>Mon & Tue CLOSED</p>
-        <p>Wednesday 10.00 - 24.00</p>
-        <p>Thursday 10:00 - 24:00</p>
-      </div>
-      <div class="w3-col s6">
-        <p>Friday 10:00 - 12:00</p>
-        <p>Saturday 10:00 - 23:00</p>
-        <p>Sunday Closed</p>
-      </div>
-    </div>
-    
-  </div>
-</div> -->
-
-<!-- Image of location/map -->
-<!-- <img src="/w3images/map.jpg" class="w3-image w3-greyscale" style="width:100%;" id="myMap"> -->
-
-<!-- Contact -->
-<!-- <div class="w3-container w3-padding-64 w3-blue-grey w3-grayscale-min w3-xlarge">
-  <div class="w3-content">
-    <h1 class="w3-center w3-jumbo" style="margin-bottom:64px">Contact</h1>
-    <p>Find us at some address at some place or call us at 05050515-122330</p>
-    <p><span class="w3-tag">FYI!</span> We offer full-service catering for any event, large or small. We understand your needs and we will cater the food to satisfy the biggerst criteria of them all, both look and taste.</p>
-    <p class="w3-xxlarge"><strong>Reserve</strong> a table, ask for today's special or just send us a message:</p>
-    <form action="/action_page.php" target="_blank">
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
-      <p><input class="w3-input w3-padding-16 w3-border" type="number" placeholder="How many people" required name="People"></p>
-      <p><input class="w3-input w3-padding-16 w3-border" type="datetime-local" placeholder="Date and time" required name="date" value="2020-11-16T20:00"></p>
-      <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Message \ Special requirements" required name="Message"></p>
-      <p><button class="w3-button w3-light-grey w3-block" type="submit">SEND MESSAGE</button></p>
-    </form>
-  </div>
-</div> -->
+<div id="pageNumber" class="numPage"></div>
 
 <!-- Footer -->
-<footer class="w3-center w3-black w3-padding-48 w3-xxlarge">
+<footer class="w3-center w3-black w3-padding-48 w3-xxlarge" id="footer">
   <p>Projet de Marie Fasel, Vincent Joris, André Santiago et Sébastien Franzone</a></p>
 </footer>
+
 
 <script src="script.js"></script>
 <script src="backend_comm.js"></script>
