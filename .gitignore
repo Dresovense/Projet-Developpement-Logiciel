@@ -7,3 +7,4 @@
 *.csv
 backend/test.py
 /node_modules
+my_excel_results.xlsx
