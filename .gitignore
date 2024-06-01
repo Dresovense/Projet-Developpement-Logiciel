@@ -8,3 +8,4 @@
 backend/test.py
 /node_modules
 my_excel_results.xlsx
+/electron-test/node_modules

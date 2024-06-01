@@ -14,7 +14,7 @@ Methods:
 import sqlite3
 
 class Search:
-    db_info = 'database/database.db'
+    db_info = '../database/database.db'
 
     def get_data(self, intervenants: list = None, branches: list = None, return_others: bool = False):
         """
