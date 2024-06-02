@@ -52,7 +52,7 @@ def startingData():
     dictionnaire = {
         "cours": courses,
         "intervenants": teachers,
-        "horaires": horaires,
+        "horaires": horaires
     }
 
     print(dictionnaire)
@@ -86,4 +86,6 @@ def similarity():
     return jsonify(cours2.dataframe.to_dict(orient="records"))
 
 if __name__ == "__main__":
+    print("Backend is starting, ...")
     app.run("localhost", 6969)
+    print("Backend is running")
