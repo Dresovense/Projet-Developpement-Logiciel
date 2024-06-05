@@ -9,11 +9,11 @@ function createWindow () {
     win.maximize()
 
     //Uncomment if working with python directly
-    /* var python = require('child_process').spawn('py', ['../backend/app.py']);
+    /* var python = require('child_process').spawn('py', ['backend/app.py']);
     python.stdout.on('data', function (data) {
         console.log(data.toString('utf8'));
         if(data.toString("utf-8").includes("Backend is starting, ...")){
-            win.loadFile("../frontend/index.html")
+            win.loadFile("frontend/index.html")
         }
     });
     python.stderr.on('data', (data) => {
@@ -23,7 +23,7 @@ function createWindow () {
     //Uncomment if working with an exe file
     var execfile = require('child_process').execFile;
     let backend = execfile(
-        "dist/app.exe",
+        "backend/dist/app.exe",
         {
             windowsHide: true,
         },
@@ -42,7 +42,7 @@ function createWindow () {
     backend.stdout.on('data', (data) => {
         console.log(data.toString('utf8'));
         if (data.toString('utf-8').includes('Backend is starting, ...')) {
-            win.loadFile('../frontend/index.html');
+            win.loadFile('frontend/index.html');
         }
     });
     backend.stderr.on('data', (data) => {
@@ -51,7 +51,7 @@ function createWindow () {
 
     
     //Always leave uncommented
-    win.loadFile('../frontend/loading.html')
+    win.loadFile('frontend/loading.html')
 }
 
 app.whenReady().then(createWindow)

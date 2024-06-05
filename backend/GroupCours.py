@@ -47,7 +47,7 @@ class GroupCours:
         corpus_query = group_cours_df.dataframe['nom'].to_list()
 
         # Load the pre-trained Doc2Vec model
-        model = Doc2Vec.load("../backend/d2v.model")
+        model = Doc2Vec.load("backend/d2v.model")
 
         # Infer vectors for user-selected and query documents
         wanted_vecs = [model.infer_vector(word_tokenize(doc.lower())) for doc in corpus_wanted]
@@ -115,4 +115,4 @@ class GroupCours:
         model = gensim.models.doc2vec.Doc2Vec(vector_size=50, min_count=1, epochs=40)
         model.build_vocab(tagged_data)
         model.train(tagged_data, total_examples=model.corpus_count, epochs=80)
-        model.save("../backend/d2v.model")
+        model.save("backend/d2v.model")
