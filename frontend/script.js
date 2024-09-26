@@ -141,7 +141,7 @@ function checkLanguages(inputLang) {
     if (index !== -1) {
       filtred_data.languages.splice(index, 1); // If language checkbox is unchecked, remove it from languages array
     }
-  }
+  } 
   console.log(filtred_data.languages);
 }
 
@@ -175,3 +175,4 @@ function hideInfoBox(element) {
   const infoBox = element.parentNode.getElementsByClassName("info_box")[0]; // Get the info_box element
   infoBox.style.display = 'none'; // Hide the info box
 }
+

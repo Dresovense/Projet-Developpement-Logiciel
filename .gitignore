@@ -12,3 +12,5 @@ my_excel_results.xlsx
 /backend/build
 /backend/app.spec
 /backend/dist
+/dist
+/dist

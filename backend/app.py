@@ -22,6 +22,7 @@ from Search import Search
 from GroupCours import GroupCours
 
 app = Flask("Developpement logiciel")
+app.debug = True
 CORS(app)
 
 def get_db_connection():
@@ -31,7 +32,7 @@ def get_db_connection():
     Returns:
         sqlite3.Connection: SQLite connection object.
     """
-    conn = sqlite3.connect('database/database.db')
+    conn = sqlite3.connect('resources/database/database.db')
     return conn
 
 @app.route("/startingData", methods=["GET"])

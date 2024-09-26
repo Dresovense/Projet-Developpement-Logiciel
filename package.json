@@ -1,14 +1,51 @@
 {
-  "name": "electron-test",
+  "name": "nestor",
   "version": "1.0.0",
-  "description": "",
+  "description": "Choisir son cours à option",
   "main": "electron/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder -wl"
   },
-  "author": "",
+  "author": "André Santiago, Vincent Joris, Marie Fasel, Sébastien Franzone",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^30.0.9"
+    "electron": "^30.0.9",
+    "electron-builder": "^25.0.0-alpha.9"
+  },
+  "build": {
+    "appId": "com.example.flaskelectron",
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "files": [
+      "electron/**/*",
+      "frontend/**/*",
+      "backend/dist/app.exe",
+      "backend/d2v.model",
+      "database/database.db"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/dist/app.exe",
+        "to": "backend/dist/app.exe"
+      },
+      {
+        "from": "backend/d2v.model",
+        "to": "backend/d2v.model"
+      },
+      {
+        "from": "database/database.db",
+        "to": "database/database.db"
+      }
+    ]
   }
+  
 }

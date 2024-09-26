@@ -23,10 +23,10 @@ function createWindow () {
     //Uncomment if working with an exe file
     var execfile = require('child_process').execFile;
     let backend = execfile(
-        "backend/dist/app.exe",
-        {
+        "resources/backend/dist/app.exe",
+        /* {
             windowsHide: true,
-        },
+        }, */
         (err, stdout, stderr) => {
             if(err){
                 console.log(err);
@@ -50,7 +50,7 @@ function createWindow () {
     });
 
     
-    //Always leave uncommented
+    //Always leave uncommented (starts loading page, should go to index.html when the backend has started)
     win.loadFile('frontend/loading.html')
 }
 
